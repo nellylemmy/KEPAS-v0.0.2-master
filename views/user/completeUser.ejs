@@ -1,0 +1,26 @@
+<%- include('header',{
+    title:'Login'
+}); -%>
+
+<div class="link"><a href="/"> &lAarr; BACK</a></div><br><br>
+<div class="container forms">
+    <h1> 👤 Complete Profile</h1>
+
+    <form action="" method="POST">
+        <% if(typeof msg != 'undefined'){ %>
+            <div class="success-msg"><%= msg %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %>
+            
+        <div class="discriptions pt-2">
+            If you choose to use BOM as a user, you will be able to send, receive, deposit or withdraw money.
+            You can withdraw or deposit to: Agents, Companies or Banks.
+            You can send or receive money from other users. Thank you for choosing to work with us.  
+        </div><br>
+        <input type="checkbox" name="agree_user_complete" id="terms_and_conditions" value="yes" onclick="terms_changed(this)"> <span class="check">Check this box to Finish</span><br><br>
+        <button type="submit" id="submit_button" disabled>finish</button>
+    </form>
+
+</div>
+
+<%- include('footer'); -%>

@@ -1,0 +1,39 @@
+<div class="banner-content">
+  <div class="user-data"> 
+      <div class="balance-text">balance</div>
+      <div class="balance-value" id="user_bal"><%= Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(user.balance).slice(4) %><span><sub>Ksh</sub></span></div> 
+
+      <div class="format-balance-value"></div>
+      <div class="walet-text">Available in wallet <span class="wallet">Ksh <%= Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(user.income).slice(4) %></span></div>
+      <!-- <div class="bom-coin-text">BOM Coin <span class="coin-text">BC 0.000001</span></div> -->
+  </div>
+   <!-- three dot menu -->
+   <div class="right-top-dots-dropdown">
+      <!-- three dots -->
+          <button class="right-top-dots-dropbtn right-top-dots-icons right-top-dots-btn-right right-top-dots-showLeft" onclick="showTopBalanceThreeDotsDropdown()">
+              <i class="fas fa-ellipsis-v"></i>
+          </button>
+
+      <!-- menu -->
+      <div id="rightTopDotsDropdownMenu" class="right-top-dots-dropdown-content">
+          <a href="#paybill__opened" class="link-1" id="paybill-closed">Pay Bill</a>                      
+          <!-- <a href="#requestfund">Request Fund</a>                       -->
+          <a href="./wallet" class="link-1">My Wallet</a>                      
+          <!-- <a href="#loans&savings">Loans & Savings</a> -->
+          <a href="#get__business__number__opened" class="link-1" id="get-business-number-closed">Get Business Number</a>
+          <a href="#become__an__agent__opened" class="link-1" id="become-an-agent-closed">Become An Agent</a>
+      </div>
+  
+  </div>
+  <div class="right-banner-content">
+  <div class="user-actions">
+      <div class="send-money" id="send-money">
+          <a href="./sendmoney">Send</a>
+      </div>
+      <div class="withdraw-money">
+          <a href="./withdrawmoney" class="link-1">Withdraw</a>
+      </div>
+  </div>
+  </div>
+ 
+</div>

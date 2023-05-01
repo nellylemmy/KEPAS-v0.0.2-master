@@ -1,0 +1,65 @@
+<%- include('header',{
+    title:'Login'
+}); -%>
+
+<!-- <div class="link"><a href="/"> &lAarr; BACK</a></div><br><br> -->
+<div class="login-container forms">
+    <div class="logo-banner">
+        <img src="./bom-logo.png" alt="logo">
+    </div>
+    <div class="auth">
+        <h1> Sign in to B.O.M</h1>
+    </div>
+   
+    <form method="POST" class="form-body">
+        <% if(typeof error !== 'undefined'){ %>
+        <div class="err-msg"><%= error %></div> <br><% } %>
+        <label for="phone">Phone Number</label>
+        <input type="number" list="phone_no" class="form-input" name="phone" id="phone" placeholder="Enter Your Phone Number" required>
+        <datalist id="phone_no">
+            <option value="0741642093">
+            <option value="1234567890">
+            <option value="0112345678">
+            <option value="0711223344">
+        </datalist>
+
+        <div class="pass">
+            <div class="pass-with-forgot">
+                <label for="user_pass">Password</label>
+                <label for="forgot-password"><a href="/">Forgot password</a></label>
+            </div>
+            <input type="password" class="form-input" name="password" id="user_pass" placeholder="Enter Your Password" required>
+            <label class="mt-1 show-password"><input type="checkbox" onclick="showPassword()"> Show Password</label>
+            <input type="submit" value="Login" class="sign-in-btn">
+        </div>
+    </form>
+
+</div>
+
+<div class="new-to-bom">
+    <span>New to BOM?</span> <span><a href="./signup">Create an account</a></span>
+</div>
+
+<div class="footer-content">
+    <div class="version">
+        &copy; 2020 - <span class="year"></span> , BOM-v0.0.2 
+    </div>
+    <div class="footer-links">
+        <ul>
+            <li><a href="/terms">Terms</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+            <li><a href="/security">Security</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contacts" class="link-contact">Contact B.O.M</a></li>
+        </ul>
+    </div>
+    <div class="social">
+        <ul>
+            <li><a href="/youtube"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="/instagram"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="/facebook"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </div>
+</div>
+
+<%- include('footer'); -%>

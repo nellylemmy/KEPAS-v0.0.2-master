@@ -1,0 +1,247 @@
+<%- include('header'); -%>
+<main>
+<div class="top-nav">
+  <div class="user-name-and-search">
+      <div class="logo">
+        <div class="action-header-logo">
+            <img src="./K-for-kepas-2.jpg" alt="logo">
+            
+        </div>
+    </div>
+    <ul class="tiop-nav-actions">
+        <li><a href="/" class="active-link"> dashboard</a></li>
+        <li><a href="./sendmoney"> send or withdraw</a></li>
+        <li><a href="./wallet"> wallet</a></li>
+        <li><a href="./activity"> activity</a></li>
+        <li><a href="./help"> help</a></li>
+    </ul>
+      <div class="search">
+        <a href="./notifications" class="link-1" id="notifications-closed">
+            <div class="notifications">
+                <span class="notification-count">2</span>
+                <span class="bell-icon"><i class="fas fa-bell"></i></span>
+            </div>
+        </a>
+
+        <a href="./account" class="link-1" id="my-account-closed">
+            <div class="user-account-details dropbtn" onclick="showUserProfileMenu()">
+                <span class="user-icon"><i class="fas fa-user"></i></span>
+                
+            </div>
+        </a>
+      </div>
+  </div>
+</div>
+
+
+<!-- WALLET MODAL -->
+<div class="modal-container" id="wallet__opened">
+  <div class="wallet__modal">
+    <div class="modal__details">
+      <h4 class="modal__title">My Wallet</h4>
+      <p class="modal__description">
+        <!-- <small>Balance</small> -->
+        <div class="balance-value wallet" id="user_bal"> Ksh <%= Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(user.income).slice(4) %><span></span></div> 
+      </p>
+    </div>
+<br>
+    <button class="modal__btn">Send to local account &rarr;</button>
+    <a href="#wallet-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- PAYBILL MODAL -->
+<div class="modal-container" id="paybill__opened">
+  <div class="paybill__modal">
+    <div class="paybill__details">
+      <h4 class="modal__title">Paybill</h4>
+      <p class="modal__description">   
+      </p>
+    </div>
+<br>
+    <a href="#paybill-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- GET BUSINESS NUMBER MODAL -->
+<div class="modal-container" id="get__business__number__opened">
+  <div class="get__business__number__layout">
+    <div class="get__business__number__details">
+      <h4 class="modal__title">Get BS NO</h4>
+      <p class="modal__description">     
+      </p>
+    </div>
+<br>
+    <a href="#get-business-number-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- BECOME AN AGENT MODAL -->
+<div class="modal-container" id="become__an__agent__opened">
+  <div class="become__an__agent__layout">
+    <div class="become__an__agent__details">
+      <h4 class="modal__title">BECOME AN AGENT</h4>
+      <p class="modal__description">  
+      </p>
+    </div>
+<br>
+    <a href="#become-an-agent-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- NOTIFICATION MODAL -->
+<div class="modal-container" id="notifications__opened">
+  <div class="notifications__layout">
+    <div class="notifications__details">
+      <h4 class="modal__title">notifications</h4>
+      <p class="modal__description">
+      </p>
+    </div>
+<br>
+    <a href="#notifications-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- MY ACCOUNT MODAL -->
+<div class="modal-container" id="my__account__opened">
+  <div class="my__account__layout">
+    <div class="my__account__details">
+      <h4 class="modal__title">my__account</h4>
+      <hr>
+      <a href="/logout">Log Out</a>
+      <p class="modal__description">        
+      </p>
+    </div>
+<br>
+    <a href="#my-account-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- WITHDRAW MODAL -->
+<div class="modal-container" id="withdraw__opened">
+  <div class="wallet__modal">
+    <div class="modal__details">
+      <div class="withdraw">
+        <div class="withdraw-logo">
+          <img src="./small-kepas.jpg" alt="kepasLogo">
+        </div>
+        <div class="agent-details">
+          <span class="main_title">Withdraw from Agent</span>
+          <span class="verify-agent-name">NAME: bramuk entreprice LTD</span>
+        </div>
+        <!-- <form method="POST" >
+          <div class="withdraw-inputs">
+            <input type="number" name="agent_number" id="agent__number" class="form-control input" placeholder="Enter Agent Number">
+            <input type="number" name="user_amount_for_agent" id="user__amount__for__agent" class="form-control input" placeholder="Enter Amount">
+            <input type="password" name="user_password_for_agent" id="user__password__for__agent" class="form-control input" placeholder="Enter Password" autocomplete="on">
+          </div>
+        </form> -->
+
+
+        <form class="form-body fixed-height" id="withdraw-money-form" method="POST">
+          <!-- <% if(typeof msg != 'undefined'){ %>
+            <div class="success-msg"><%= msg %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %> -->
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="agentNumber">Agent Number <span class="star">*</span></label>
+
+                  <input class="form-input" type="number" id="agent__no" placeholder="Enter Agent Number" oninput="this.className = ''" name="agentNumber" required>   
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="amountToWithdra">Amount <span class="star">*</span> </label>
+
+                  <input class="form-input" type="number" min="0" step="0.01" placeholder="Enter Amount" oninput="this.className = ''" name="amountToWithdraw" required >
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="userPassword">Password <span class="star">*</span> </label>
+
+                  <input class="form-input" placeholder="Enter Your Password" oninput="this.className = ''" name="userPassword" type="password" autocomplete="on" required>
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab adjust-to-fit center-content">
+              <p class="terms-step">
+                  <span>
+                      By clicking here, you agree to our Terms & Conditions. 
+                  </span>
+
+                  <div class="in-terms mt-1">
+                      <input type="checkbox" value="yes" onclick="terms_check(this)" required> <label class="check">Agree our <a href="#">Terms</a></label>
+                  </div>
+                  
+              </p>
+          </div>
+
+          <div class="next-prev-btns">
+              
+                <button type="button" id="withdrawMoneyPrevBtn" onclick="withdrawMoneyNextPrev(-1)">&leftarrow;
+                  Previous</button>
+                <button type="button" id="withdrawMoneyNextBtn" onclick="withdrawMoneyNextPrev(1)">Next</button>
+              
+            </div>
+
+  </form>
+
+  <div style="text-align:center;margin-top:.72rem;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+</div>
+
+
+
+        <!-- <div class="actions">
+          <button class="left-back-btn"> back</button>
+          <button class="right-ok-btn"> OK</button>
+        </div> -->
+      </div>
+    </div>
+    <a href="#withdraw-closed" class="link-2"></a>
+  </div>
+</div>
+
+<!-- Greetings on the top banner -->
+<div class="top-banner">
+<%- include('sendMoneyLayout') -%>
+
+<!-- Greeting Welcome Message -->
+<div class="user-hello">
+    <span class="hello">
+    Hello, <%= user.first_name %>
+    </span>
+    <div class="welcome-back">welcome back</div>
+</div>
+
+<%- include('bannerContent') -%>
+
+<div class="sms-body-list container">
+<p class="my-3 h4"> <b>Recent activity</b></p>
+<div class="left left-activity card">
+    <!-- Messages List -->
+    <%- include('messagesList') -%>
+
+    <!-- Message body Modal -->
+    <%- include('messageModal') -%>
+    <div class="all-activities"><a href="./activity" class="my-3">Show All</a></div>
+</div> 
+</div>
+<!-- No Data Field -->
+<%- include('noDataField') -%>
+</div>
+
+<!-- will only show when detect a new user -->
+<div class="activities"></div>
+
+<%- include('footerContent'); -%>
+</main>
+<%- include('footer'); -%>

@@ -1,0 +1,122 @@
+<%- include('header',{
+    title:'Signup'
+}); -%>
+
+<div class="signup-container">
+    <div class="logo-banner">
+        <img src="./bom-logo.png" alt="logo">
+    </div>
+    <div class="auth">
+        <h1> Sign in to B.O.M</h1>
+    <% if(typeof msg != 'undefined'){ %>
+    <div class="success-msg"><%= msg %></div><% }
+    if(typeof error !== 'undefined'){ %>
+    <div class="err-msg"><%= error %></div><% } %>
+    </div>
+
+    <form class="form-body fixed-height" id="signupRegForm" action="" method="POST">
+
+            <div class="signup-tab">
+                <p>
+                    <label for="firstNameInput">First Name <span class="star">*</span></label>
+
+                    <input class="form-input" type="text" id="f-ame" placeholder="Enter First Name" oninput="this.className = ''" name="firstName" required>
+
+                    <label for="lastNameInput">Last Name <span class="star">*</span></label>
+
+                    <input class="form-input" type="text" id="f-ame" placeholder="Enter Last Name" oninput="this.className = ''" name="lastName" required>    
+                </p>
+            </div>
+
+            <div class="signup-tab">
+                <p>
+                    <label for="idnumber">ID Number <span class="star">*</span> </label>
+
+                    <input class="form-input" type="number" placeholder="Enter ID Number" oninput="this.className = ''" name="idnumber" required >
+
+                    <label for="phone">Mobile Number <span class="star">*</span> </label>
+
+                    <input class="form-input" type="number" placeholder="Enter Mobile Number" oninput="this.className = ''" name="phone" required >
+
+                </p>
+            </div>
+
+            
+            <div class="signup-tab adjust-to-fit">
+                <p>
+                    <label for="emailInput">Email <span class="star">*</span></label>
+
+                    <input class="form-input" placeholder="Enter Email" oninput="this.className = ''" name="email" type="email">
+                </p>
+            </div>
+
+            <div class="signup-tab">
+                <p>
+                    <label for="passwordInput">Password <span class="star">*</span> </label>
+
+                    <input class="form-input" placeholder="Enter a new Password" oninput="this.className = ''" name="password" type="password" required>
+
+                    <label for="confirmPasswordInput">Confirm Password <span class="star">*</span></label>
+
+                    <input class="form-input" oninput="this.className = ''" name="confirmPassword" type="password" placeholder="Re-enter your password" required>
+                </p>
+            </div>
+
+            <div class="signup-tab adjust-to-fit center-content">
+                <p class="terms-step">
+                    <span>
+                        By clicking here, you agree to our Terms & Conditions. 
+                    </span>
+
+                    <div class="in-terms mt-1">
+                        <input type="checkbox" name="agree_user_complete" id="terms_and_conditions" value="yes" onclick="terms_check(this)" required> <label class="check">Agree our <a href="#">Terms</a></label>
+                    </div>
+                    
+                </p>
+            </div>
+
+            <div class="next-prev-btns">
+                
+                  <button type="button" id="signupPrevBtn" onclick="signupNextPrev(-1)">&leftarrow;
+                    Previous</button>
+                  <button type="button" id="signupNextBtn" onclick="signupNextPrev(1)">Next</button>
+                
+              </div>
+
+    </form>
+    <div style="text-align:center;margin-top:.72rem;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+    </div>
+    <div class="login-now">
+        <span>Have an account?</span> <span><a href="./login">Login</a></span>
+    </div>
+
+    </div>
+
+    <div class="footer-content">
+        <div class="version">
+            &copy; 2020 - <span class="year"></span> , BOM-v0.0.2 
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="/terms">Terms</a></li>
+                <li><a href="/privacy">Privacy</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contacts" class="link-contact">Contact B.O.M</a></li>
+            </ul>
+        </div>
+        <div class="social">
+            <ul>
+                <li><a href="/youtube"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="/instagram"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="/facebook"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+<%- include('footer'); -%>

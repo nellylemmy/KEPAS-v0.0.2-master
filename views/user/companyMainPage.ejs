@@ -1,0 +1,33 @@
+<%- include('header'); -%>
+
+<div class="container view">
+    <div class="well">
+        <h3 class="Hello">
+            Company No: <%= company.company_number %>
+        </h3>
+        <div class="disc">
+        <span class="description inn">
+            <span>Company Name: <%= company.company_name %></span><br>
+            <span>Phone: <%= company.company_phone %></span><br>
+            <span>Email: <%= company.email %></span><br>
+            <span>Country: <%= company.country %></span><br>
+        </span>
+        </div>
+        <ol>
+            <li>Deposit To  companys</li>
+            <li>Deposit To users</li>
+            <li>Deposit To Company</li>
+            <li>Deposit To Bank</li>
+        </ol>
+    </div>
+    <div class="profile">
+        <div class="img"> 🏘 </div>
+        <span>balance: <%= company.company_balance %></span>
+        <span>account type: B.O.M company - <%= user.is_company %></span> 
+        <span>Joined: 22/2/2021 5:37 pm</span>
+        
+        <a href="/logout">Log Out</a>
+    </div>
+    
+</div>
+<%- include('footer'); -%>

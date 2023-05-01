@@ -1,0 +1,33 @@
+<%- include('header'); -%>
+
+<div class="container view">
+    <div class="well">
+        <h3 class="Hello">
+            Bank Account Number: <%= bank.bank_number %>
+        </h3>
+        <div class="disc">
+        <span class="description inn">
+            <span>Bank Name: <%= bank.bank_name %></span><br>
+            <span>Phone: <%= bank.bank_phone %></span><br>
+            <span>Email: <%= bank.email %></span><br>
+            <span>Country: <%= bank.country %></span><br>
+        </span>
+        </div>
+        <ol>
+            <li>Deposit To  companys</li>
+            <li>Deposit To Users</li>
+            <li>Deposit To Company</li>
+            <li>Deposit To Bank</li>
+        </ol>
+    </div>
+    <div class="profile">
+        <div class="img"> 🏦  </div>
+        <span>balance: <%= bank.bank_balance %></span>
+        <span>account type: B.O.M bank - <%= user.is_bank %></span> 
+        <span>Joined: 22/2/2021 5:37 pm</span>
+        
+        <a href="/logout">Log Out</a>
+    </div>
+    
+</div>
+<%- include('footer'); -%>

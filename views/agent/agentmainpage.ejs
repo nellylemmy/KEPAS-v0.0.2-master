@@ -1,0 +1,15 @@
+<%- include('header'); -%>
+<div class="container">
+    <div class="profile">
+        <div class="img"> 🦹‍♂️ </div>
+ 
+ACCOUNT OWNER: <span><h2><%= agent.agent_owner_full_names %> </h2></span>
+AGENT NUMBER: <span><h2><%= agent.agent_number %> </h2></span>
+AGENT NAME: <span><h2><%= agent.agent_name %> </h2></span>
+AGENT INCOME: <span><h2> Ksh <%= agent.agent_total_income %> </h2></span>
+AGENT BALANCE: <span><h2> Ksh <%= agent.agent_total_bal %> </h2></span>
+        <hr>
+        <a href="/agentlogout">Log Out</a>
+    </div>
+</div>
+<%- include('footer'); -%>

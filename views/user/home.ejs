@@ -1,0 +1,67 @@
+<%- include('header'); -%>
+<a href="/logout" class="logout">Log Out</a>
+<div class="container view">
+    <div class="well">
+        <span class="hello"> <span class="hand"> 👋 Hello <%= user.first_name %>,</span>
+        </span>
+        <div class="disc">
+            <div class="description">
+                We are glad you are here :)
+                <br>
+                You can earn even more money by becoming an agent with BOM. Please <a href="/user/more"> CLICK THIS LINK TO READ THE GOOD NEWS</a>. It's fun !
+            </div>
+        </div>
+        <div class="view">
+            <!-- <a href="/agent/complete" class="agent"> BECOME AN agent</a> -->
+        </div>
+        <h4 class="actions-header">Actions</h4>
+        <button class="actions-btn" id="send-money"> send money</button>
+        <button class="actions-btn"> withdraw from agent</button>
+        <button class="actions-btn"> harvest my income</button>
+    </div>
+
+    <div class="profile">
+        <div class="send-money-layout">
+            <div class="layout">
+                <div class="back-section">
+                    <button class="back-btn" id="back-from-sendMoney">&larr; BACK</button>
+                </div>
+            </div>
+            <div class="layout-body">
+                <form action="" method="POST" autocomplete="off">
+                    <% if(typeof msg != 'undefined'){ %>
+                    <div class="success-msg"><%= msg %></div><% }
+                    if(typeof error !== 'undefined'){ %>
+                    <div class="err-msg"><%= error %></div><% } %>
+                    
+                <fieldset>
+                    <h3>Send Money To: </h3>
+                    
+                    <label>Recipient Mobile Number</label>
+                    <input type ="number" name="recipientNumber" required>
+                    <br><br>
+                    <label>Quantity</label>
+                    <input type="number" name="recipientQuantity" required>
+                    <br><br>
+                    <button type ="submit">Submit</button>
+                </fieldset>
+                </form>
+                </div>
+        </div>
+        <div class="img"> 🦹‍♂️ </div>
+        <h1>LOCAL USER ACCOUNT</h1>
+        <h2><%= user.first_name %> <%= user.last_name %></h2>
+        <span>PUBLIC ID ( PID ): <%= user.public_id %></span>
+        <span>BALANCE: <span class="ksh">KSH.</span> <%= user.balance %></span>
+        <span>INCOME: <span class="ksh">KSH.</span> <%= user.income %></span>
+        <span>JOINED: <%= user.date %></span>
+        <span>COUNTRY: <%= user.country %></span>
+
+        <div class="more"> <a href="/agent/complete">BECOME AN agent</a></div>
+    </div>
+    </div>
+    
+</div>
+
+
+<%- include('footer'); -%>

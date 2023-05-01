@@ -1,0 +1,87 @@
+<%- include('header'); -%>
+<a href="/logout" class="logout">Log Out</a>
+
+<div class="container view agent-view hide">
+    <div class="well">
+        <div class="disc">
+        <span class="description inn">
+            <h2>Agent Number: <%= agent.number %></h2>
+            <span>Agent Name: <%= agent.name %></span><br>
+            <span>Phone: <%= agent.phone %></span><br>
+            <span>Email: <%= agent.email %></span><br>
+            <span>Country: <%= agent.country %></span><br>
+        </span>
+        </div>
+        <h4 class="actions-header">Actions</h4>
+        <button class="actions-btn" id="deposit-to-user"> Deposit to user</button>
+        <button class="actions-btn"> Transfer income</button>
+        <button class="actions-btn"> more options</button>
+    </div>
+    <div class="profile">
+        <div class="img"> 🦹‍♂️ </div>
+        <h1>Agent ACCOUNT</h1>
+        <button class="actions-btn" id="switch-to-local">switch to local Account</button>
+        <span>BALANCE: <span class="ksh">KSH.</span> <%= user.balance %></span>
+        <span>INCOME: <span class="ksh">KSH.</span> <%= user.income %></span>
+    </div>
+    
+</div>
+
+
+<div class="container view local-view">
+    <div class="well">
+        <span class="Hello"> <span class="hand"> 👋 Hello <%= user.first_name %>, Welcome back</span>
+        <h4 class="actions-header">Actions</h4>
+        <button class="actions-btn" id="send-money"> Send money</button>
+        <button class="actions-btn"> Withdraw from agent</button>
+        <button class="actions-btn"> Harvest my income</button>
+        <button class="actions-btn"> More Options</button>
+    </div>
+
+    <div class="profile">
+        <div class="send-money-layout">
+            <div class="layout">
+                <div class="back-section">
+                    <button class="back-btn" id="back-from-sendMoney">&larr; BACK</button>
+                </div>
+            </div>
+            <div class="layout-body">
+                <form action="" method="POST" autocomplete="off">
+                    <% if(typeof msg != 'undefined'){ %>
+                    <div class="success-msg"><%= msg %></div><% }
+                    if(typeof error !== 'undefined'){ %>
+                    <div class="err-msg"><%= error %></div><% } %>
+                    
+                <fieldset>
+                    <h3>Send Money To: </h3>
+                    
+                    <label>Recipient Mobile Number</label>
+                    <input type ="number" name="recipientNumber" required>
+                    <br><br>
+                    <label>Quantity</label>
+                    <input type="number" name="recipientQuantity" required>
+                    <br><br>
+                    <button type ="submit">Submit</button>
+                </fieldset>
+                </form>
+                </div>
+        </div>
+        <div class="img"> 🦹‍♂️ </div>
+        <h1>LOCAL ACCOUNT</h1>
+        <button class="actions-btn" id="switch-to-agent">switch to agent Account</button>
+        <h2><%= user.first_name %> <%= user.last_name %></h2>
+        <span>PUBLIC ID ( PID ): <%= user.public_id %></span>
+        <span>BALANCE: <span class="ksh">KSH.</span> <%= user.balance %></span>
+        <span>INCOME: <span class="ksh">KSH.</span> <%= user.income %></span>
+        <span>JOINED: <%= user.date %></span>
+        <span>COUNTRY: <%= user.country %></span>
+
+        
+        <!-- <span>MOBILE: <%= user.mobile %></span>
+        <span>E-MAIL: <%= user.email %></span> -->
+    </div>
+    </div>
+    
+</div>
+
+<%- include('footer'); -%>

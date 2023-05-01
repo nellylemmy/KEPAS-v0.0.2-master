@@ -1,0 +1,226 @@
+
+<%- include('header'); -%>
+<main>
+<div class="top-nav">
+  <div class="user-name-and-search">
+      <div class="logo">
+        <div class="action-header-logo">
+            <img src="./K-for-kepas-2.jpg" alt="logo">
+        </div>
+    </div>
+    <ul class="tiop-nav-actions">
+        <li><a href="/"> dashboard</a></li>
+        <li><a href="./sendmoney" class="active-link"> send or withdraw</a></li>
+        <li><a href="./wallet"> wallet</a></li>
+        <li><a href="./activity"> activity</a></li>
+        <li><a href="./help"> help</a></li>
+    </ul>
+      <div class="search">
+        <a href="./notifications" class="link-1" id="notifications-closed">
+            <div class="notifications">
+                <span class="notification-count">2</span>
+                <span class="bell-icon"><i class="fas fa-bell"></i></span>
+            </div>
+        </a>
+        <a href="./account" class="link-1" id="my-account-closed">
+            <div class="user-account-details dropbtn" onclick="showUserProfileMenu()">
+                <span class="user-icon"><i class="fas fa-user"></i></span>
+            </div>
+        </a>
+      </div>
+  </div>
+</div>
+
+<div class="payment-navigation">
+    <div class="payment-navigation-links">
+      <ul>
+        <li><a href="./sendmoney">Send</a></li>
+        <li><a href="./withdrawmoney" class="send-money-active-link">Withdraw</a></li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  
+  <!-- WITHDRAW MODAL -->
+
+    <div class="modal__details">
+      <div class="withdraw">
+        <div class="withdraw-logo">
+          <img src="./small-kepas.jpg" alt="kepasLogo">
+        </div>
+        <div class="agent-details">
+          <span class="main_title">Withdraw from Agent</span>
+          <span class="verify-agent-name">NAME: bramuk entreprice LTD</span>
+        </div>
+
+
+        <form class="form-body fixed-height" id="withdraw-money-form" method="POST">
+          <% if(typeof msg != 'undefined'){ %>
+            <div class="success-msg"><%= msg %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %>
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="agentNumber">Agent Number <span class="star">*</span></label>
+
+                  <input class="form-input" type="number" id="agent__no" placeholder="Enter Agent Number" oninput="this.className = ''" name="agentNumber" required>   
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="amountToWithdra">Amount <span class="star">*</span> </label>
+
+                  <input class="form-input" type="number" min="0" step="0.01" placeholder="Enter Amount" oninput="this.className = ''" name="amountToWithdraw" required >
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab">
+              <p>
+                  <label for="userPassword">Password <span class="star">*</span> </label>
+
+                  <input class="form-input" placeholder="Enter Your Password" oninput="this.className = ''" name="userPassword" type="password" autocomplete="on" required>
+              </p>
+          </div>
+
+          <div class="withdraw-money-tab adjust-to-fit center-content">
+              <p class="terms-step">
+                  <span>
+                      By clicking here, you agree to our Terms & Conditions. 
+                  </span>
+
+                  <div class="in-terms mt-1">
+                      <input type="checkbox" value="yes" onclick="confirm_agent(this)" required> <label class="check">Agree our <a href="#">Terms</a></label>
+                  </div>
+                  
+              </p>
+          </div>
+
+          <div class="next-prev-btns">
+              
+                <button type="button" id="withdrawMoneyPrevBtn" onclick="withdrawMoneyNextPrev(-1)">&leftarrow;
+                  Previous</button>
+                <button type="button" id="withdrawMoneyNextBtn" onclick="withdrawMoneyNextPrev(1)">Next</button>
+              
+            </div>
+
+  </form>
+
+  <div style="text-align:center;margin-top:.72rem;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+</div>
+      </div>
+    </div>
+<script>
+  
+// ===================================================== //
+        // Next / Previous steps in withdraw money page
+// ===================================================== //
+
+function confirm_agent(confirmAgentName){
+  //If the checkbox has been checked
+  if(confirmAgentName.checked){
+      document.getElementById("withdrawMoneyNextBtn").disabled = false;
+  } else{
+      document.getElementById("withdrawMoneyNextBtn").disabled = true;
+  }
+}
+
+let withdraw_money_genesis_tab = 0; // Current tab is set to be the first tab (0)
+showWithdrawMoneyGenesisTab(withdraw_money_genesis_tab); // Display the current tab
+
+function showWithdrawMoneyGenesisTab(n) {
+  // This function will display the specified tab of the form...
+  let x = document.getElementsByClassName("withdraw-money-tab");
+  if(x[n] !== undefined){
+    x[n].style.display = "block";
+
+    //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("withdrawMoneyPrevBtn").style.visibility = "hidden";
+  } else {
+    document.getElementById("withdrawMoneyPrevBtn").style.visibility = "visible";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("withdrawMoneyNextBtn").disabled = true;
+    document.getElementById("withdrawMoneyNextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("withdrawMoneyNextBtn").disabled = false;
+    document.getElementById("withdrawMoneyNextBtn").innerHTML = "Next &rightarrow;";
+  }
+  }
+  
+  
+  //... and run a function that will display the correct step indicator:
+  withdrawMoneyFixStepIndicator(n)
+}
+
+function withdrawMoneyNextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("withdraw-money-tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !withdrawMoneyForm()) return false;
+  // Hide the current tab:
+  x[withdraw_money_genesis_tab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  withdraw_money_genesis_tab = withdraw_money_genesis_tab + n;
+  // if you have reached the end of the form...
+  if (withdraw_money_genesis_tab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("withdraw-money-form").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showWithdrawMoneyGenesisTab(withdraw_money_genesis_tab);
+}
+
+function withdrawMoneyForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("withdraw-money-tab");
+  y = x[withdraw_money_genesis_tab].querySelectorAll(".withdraw-money-tab input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[withdraw_money_genesis_tab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function withdrawMoneyFixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+
+  if(x[n] !== undefined){
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+  }
+}
+
+
+// ============================================== //
+        // The Withdraw Money Button //
+// ============================================== //
+</script>
+
+
+
+
+</main>
+<%- include('footerContent'); -%>

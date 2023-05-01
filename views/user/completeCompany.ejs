@@ -1,0 +1,29 @@
+<%- include('header',{
+    title:'Login'
+}); -%>
+
+<div class="link"><a href="/"> &lAarr; BACK</a></div><br><br>
+<div class="container forms">
+    <h1> 🏘 Company </h1>
+
+    <form action="" method="POST">
+        <% if(typeof msg != 'undefined'){ %>
+            <div class="success-msg"><%= msg %></div><% }
+            if(typeof error !== 'undefined'){ %>
+            <div class="err-msg"><%= error %></div><% } %>
+            
+        <div class="discriptions pt-2">
+            If you choose to use BOM as Company, you will be able to Deposit, Send, Receive or withdraw money.
+            You can withdraw or deposit to: Agents, other Companies, Users or Banks.
+            You can send money to employees. 
+            You can receive money from clients. 
+            A Company will get 10% of every transaction cost. If cost is 40 ksh, they will get 4 ksh
+        
+        </div><br>
+        <input type="checkbox" name="agree_company_complete" id="terms_and_conditions" value="yes" onclick="terms_changed(this)"> <span class="check">Check this box to Finish</span><br><br>
+        <button type="submit" id="submit_button" disabled>finish</button>
+    </form>
+
+</div>
+
+<%- include('footer'); -%>

@@ -1,0 +1,125 @@
+<ul class="all-messages card-body">
+  <% if(typeof msgGeneral != 'undefined'){ %>
+      <% msgGeneral.forEach(function(message) { %>
+          <li class="messages-list sms-list" data-chat="person1">
+              <% if(message.recipient_id === user.id & message.recipient_mode === 'R'){ %> 
+              <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <span class="sms-image r">R</span>
+              <div class="sms-real-body">
+              <div class="sms-content-id date-time hide"><%= message.current_date %> | <%= message.current_time %></div>
+              <div class="time"><span class="list-sender-name"><%= message.sender_first_name %> <%= message.sender_last_name %></span><span class="px-2 hide"><%= message.current_date %> | <%= message.current_time %></span> <span class="money-recieved">+ <%= message.amount %> <small><sub>Ksh</sub></small></span></div>
+              <div class="sms-content-id transaction-id hide"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+              <span class="list-current-date"><%= message.current_date %> . <span>Received &DownArrow;</span></span>
+              <div class="sms-content-id amount hide"><%= message.amount %></div>
+              
+              <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+              
+              <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+              
+              <div class="sms hide"><%= message.recipient_success_message %></div>
+              
+              <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+              
+              <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+              
+              <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+              
+              <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+              
+              <div class="sms-content-id wallet-income-data hide"><%= message.recipient_income %> </div>
+              
+              
+          </div>
+          <% }%>
+  
+          <% if(message.sender_id === user.id & message.sender_mode === 'S'){ %>   
+              <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <span class="sms-image s">S</span>
+              <div class="sms-real-body">
+              <div class="sms-content-id name date-time hide"><%= message.current_date %> | <%= message.current_time %></div>
+
+              
+              <div class="time"><span class="list-recipient-name"><%= message.recipient_first_name %> <%= message.recipient_last_name %></span><span class="px-2 hide"><%= message.current_date %> | <%= message.current_time %></span> <span class="money-sent">- <%= message.amount %> <small><sub>Ksh</sub></small></span></div>
+
+              <span class="list-current-date"><%= message.current_date %> . <span>Sent &uparrow;</span></span>
+              
+              <div class="sms-content-id transaction-id hide"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+
+              <div class="sms-content-id amount hide"><%= message.amount %></div>
+              <div class="sms hide"><%= message.sender_success_message %></div>
+  
+              <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+  
+              <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+  
+              <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+  
+              <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+  
+              <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+  
+              <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+  
+              <div class="sms-content-id wallet-income-data hide"><%= message.recipient_income %> </div>
+              </div>
+          <% }%>
+  
+          <% if(message.sender_id === user.id & message.mode === 'E'){ %>   
+              <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <span class="sms-image e">E</span>
+              <div class="sms-real-body">
+              <div class="sms-content-id date-time hide"><%= message.current_date %> | <%= message.current_time %></div>    
+              <div class="time"><span>Error &excl;</span><span class="px-2"><%= message.current_date %> | <%= message.current_time %></span></div>
+              <div class="sms-content-id transaction-id"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+              <div class="sms-content-id amount hide"><%= message.amount %></div>
+              <div class="sms hide"><%= message.error_message %></div>
+  
+              <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+  
+              <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+  
+              <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+  
+              <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+  
+              <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+  
+              <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+  
+              <div class="sms-content-id wallet-income-data hide"><%= message.recipient_income %> </div>
+              </div>
+          <% }%>
+  
+          <% if(message.sender_id === user.id & message.mode === 'W'){ %>   
+              <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <span class="sms-image w">W</span>
+              <div class="sms-real-body">
+              <div class="sms-content-id date-time hide"><%= message.current_date %> | <%= message.current_time %></div>
+              <div class="time"><span>Warning &iexcl;</span><span class="px-2"><%= message.current_date %> | <%= message.current_time %></span></div>
+              <div class="sms-content-id transaction-id"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+              <div class="sms-content-id amount hide"><%= message.amount %></div>
+              <div class="sms hide"><%= message.warning_message %></div>
+  
+              <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+  
+              <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+  
+              <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+  
+              <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+  
+              <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+  
+              <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+              
+              <div class="sms-content-id wallet-income-data hide"><%= message.recipient_income %> </div>
+              </div>
+          <% }%>
+  
+  
+          </li>
+      <% }) %> 
+  <% }%>
+  
+  <li class="messages-list sms-list hide" data-chat="person2"></li>
+</ul>

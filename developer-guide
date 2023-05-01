@@ -1,0 +1,167 @@
+
+<h1>KEY FEATURES.</h1>
+
+<ol>
+
+<h3>A good,meaningful,easy to remember,short and attractive name for the company</h3>
+    - Therefore; <h2>KEPAS</h2> will be a good name.
+    - Meaning of kepas.
+      - KE - Kenya
+      - PA - Payment
+      - S  - System
+      
+<!-- EXAMLES -->
+
+<!-- payment system operator -->
+  
+  <li>
+  <h2><u>Secure authentication and login.</u></h2>
+   - The top priority of any banking application is its security since there is a great amount  of sensitive data being processed. Hence, one of the most important features of a banking app is secure login and high-level authentication.
+
+  - In general, a banking application usually requires a password from a user in order to log in but you can also add biometric authentication. Note though that even biometric authentication can be bypassed by hackers. So in order to enhance the security, you can do the following:
+
+    - Store all passwords and PINs either encrypted or hashed. Also, it is highly recommended not to store them in the source code but on a server instead.
+
+    - For biometric authentication, store PINs in the verified storage of a specific platform (either Keychain for iOS or Keystore for Android).
+
+    - Add SMS confirmation to the log-in.
+
+    - Limit the number of login attempts.
+
+    - Always make sure to start a new session every time.
+  </li>
+
+  <li>
+  <h2><u>Chatbots and customer support.</u></h2>
+    - Even though customers prefer digital banking over traditional one, they still need customer support. In a banking app, you can implement it with the help of chatbots.
+
+  - Chatbots have become immensely popular and are being used across all industries. The main benefit of chatbots is speed and quality of services: when a customer makes an inquiry, the chatbot immediately provides the needed information. This greatly contributes to user satisfaction as customers do not have to wait for a long time to obtain necessary information. Another advantage of having a chatbot implemented in your banking app is that it can be capable of performing simple operations and thus will serve as a personal assistant.
+
+  - Note though that chatbots are recommended but not obligatory. Either you decide to implement one or not, it is essential to have a few ways to provide support service to your clients. It may be an option to dial the bank right from the app or integration with messengers, depending on what method of contact your customers prefer. Just don’t underestimate the importance of providing efficient customer service and support to your clients, especially if your application is feature-rich and has complex navigation.
+  </li>
+
+  <li>
+  <h2><u>Account management.</u></h2>
+    - The main idea behind a banking app is to enable users to manage their accounts from any place and any time – hence, it is essential to provide efficient account management.
+
+  - A user’s account is usually the core of a banking app and its management includes the following options:
+
+    - Display of all active and inactive accounts;
+    - Balance check;
+    - Display of transaction history;
+    - Funds transfer;
+    - Saved payments and “quick payments”;
+    - Display of available transactions.
+
+  - Of course, this is not the whole list and there may be many more functions available. Just remember that the main idea is to let a user fully control their bank account from an app without the need to contact bank representatives for assistance.
+  </li>
+
+  <li>
+  <h2><u>An integrated map.</u></h2>
+    - One more important feature of any banking application is an integrated map. This map usually shows ATMs, Agents and bank offices within a chosen area and a user can filter search by choosing specific filters.
+
+  - Why is an integrated map so important? First, it allows users to quickly identify what’s the nearest ATM or a bank office and it takes a few seconds only. Second, it usually shows not only the ATMs and offices but also their working hours and other important information that a user might need. In this way, an integrated map saves a lot of user’s time and allows to quickly find all needed information without the need to contact a bank representative.
+  </li>
+
+  <li>
+  <h2><u>QR code payments.</u></h2>
+    - As stated above, the main idea behind a banking app is convenience and speed. And QR code payments perfectly fit into this description by allowing users to perform financial transactions by simply scanning the code.
+
+  - While the QR code technology has been around for quite a while, quite a few banking apps have this feature implemented. However, QR code payments are highly efficient due to their speed and simplicity. Plus, this technology does not require a massive investment of resources and finances.
+  </li>
+
+</ol>
+
+--------------------
+
+<h2>NB</h2>
+
+--------------------
+
+  **- When working on a banking application, it is important to keep in mind that its main focus should be usability, simplicity, and accessibility of operations. Unlike traditional banking, mobile banking is all about speed and user-friendliness so make sure your application can be easily navigated and managed. And don’t forget to invest some time into finding a good service provider as the future success and performance of an application will depend solely on how well developers will carry out the project.**
+
+
+
+
+
+
+
+
+
+
+
+  Designation of a payment system
+3. (1) The Central Bank may, by notice in the Gazette,
+designate a payment system for the purposes of this Act, if it is of
+NO. 39 National Payment System8
+the opinion that―
+(a) the payment system poses systemic risk;
+(b) the designation is necessary to protect the interest of the
+public; or
+(c) such designation is in the interest of the integrity of the
+payment system.
+(2) The notice designating a payment system under
+subsection (1) shall specify―
+(a) the payment system that is the subject of the designation;
+(b) the operator of the payment system that is the subject of
+the designation; and
+(c) any terms and conditions to which the designation may be
+subject.
+(3) The Central Bank shall give a written notice of designation
+of a payment system to the operator of the payment system that is
+the subject of designation.
+(4) The Central Bank may revoke or vary any designation
+made under this section by―
+(a) amending or revoking any condition to which the
+designation may be subject; or
+(b) making the designation subject to a new condition or
+conditions.
+(5) In determining whether or not to revoke or vary a
+designation, the Central Bank may have regard to any or all of the
+following matters
+(a) failure by the designated payment system to comply with
+any condition to which the designation may be subject;
+(b) whether or not the designated payment system has
+ceased to operate;
+(c) whether or not the designated payment system operator
+has knowingly furnished information or documents which
+are false or misleading in any material respect to the
+Central Bank in connection with the designation of the
+system;
+NO. 39 National Payment System 9
+(d) whether or not it is in the public interest to revoke the
+designation;
+(e) any other matter that the Central Bank may deem
+appropriate.
+(6) The revocation of a designation or the variation of the
+conditions to which a designation is subject shall not―
+(a) have retroactive effect;
+(b) affect the validity or enforceability of the rules of the
+designated payment system, nor shall it affect any
+payment to or out of the account of a payment system
+participant or netting or settlement that took place, prior
+to the coming into effect of such revocation or variation.
+(7) Revocation of designation of a payment system or
+variation of conditions thereof, if any, shall be by notice in the
+Gazette, and advice thereof shall be given in writing to the
+designated payment system operator.
+(8) Without prejudice to Section 32 (1), an operator of a
+payment system shall, upon advice by the Central Bank to that
+effect, and within such period as the Bank may prescribe, apply for
+the designation of the payment system under this Act.
+(9) A person who, upon receipt of advice from the Central
+Bank in accordance with subsection (8)―
+(a) fails or refuses to apply for designation of a payment
+system in accordance with the advice; and
+(b) continues to operate a payment system that has not been
+designated under this Act commits an offence.
+Amendment to constitution and rules of designated payment
+system.
+4. No amendment to the constitution of any designated
+payment system, or to the rules governing the system, shall have
+effect until they have been approved by the Central Bank.
+
+
+Automation and Big Data
+-----------------------------
+Most financial organizations have more data than they know what to do with, but that is quickly changing. Today, customer experience platforms and automation tools make it easier than ever to utilize and apply data as part of your marketing strategy for financial services. For example, big data can tell you who is saving up for a big purchase and most likely to need pre-approval for a loan, big data can help you identify and offer services before or after they are needed, it can help you to target specific customers for additional customer service or digital financial education, and can help you to cut down on needed customer service.

@@ -1,0 +1,20 @@
+<%- include('header',{
+    title:'Login'
+}); -%>
+
+<div class="link"><a href="/"> &lAarr; BACK</a></div><br><br>
+<div class="container">
+    <h1> 👨‍🦲 agent Login</h1>
+    <form action="" method="POST">
+        <% if(typeof error !== 'undefined'){ %>
+        <div class="err-msg"><%= error %></div> <br><% } %>
+        <label for="phone">Phone Number</label>
+        <input type="number" class="input" name="phone" autocomplete="off" id="phone" placeholder="Enter Your Phone Number" required>
+        <label for="user_pass">Password</label>
+        <input type="password" class="input" name="password" id="user_pass" placeholder="Enter Your Password" required>
+        <input type="submit" value="Login">
+        <div class="link"><a href="./signup">Sign Up</a></div>
+    </form>
+</div>
+
+<%- include('footer'); -%>
