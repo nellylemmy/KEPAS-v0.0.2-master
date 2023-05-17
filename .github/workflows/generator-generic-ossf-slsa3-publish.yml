@@ -58,14 +58,3 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.digests }}"
       upload-assets: true # Optional: Upload to a new release
-- name: SecureStack All-In-One GitHub Action
-  # You may pin to the exact commit or the version.
-  # uses: SecureStackCo/actions-all-in-one@96dc79a3c4081a8333040c6bf84b0c528ccb1eb9
-  uses: SecureStackCo/actions-all-in-one@v0.1.2
-  with:
-    # SecureStack API key - generate an API key at https://app.securestack.com
-    securestack_api_key: 
-    # SecureStack Application ID - can be retrieved by accessing required application at https://app.securestack.com
-    securestack_app_id: 
-    # Severities lower than this value will be reported in the workflow console but will not cause an error for the action; value should be one of: critical | high | medium | low
-    severity: 
