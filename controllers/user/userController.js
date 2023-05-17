@@ -183,20 +183,6 @@ exports.agentHomePage = async (req, res, next) => {
     
 }
 
-// Home Page
-// exports.home = async (req, res, next) => {
-//     const [row] = await dbConnection.execute("SELECT * FROM `users` WHERE `id`=?", [req.session.userID]);
-    
-//     if (row.length !== 1) {
-//         return res.send('No User In The Database');
-//     }
-//     // res.render("user/completeUser");
-    
-//     res.render('user/home', {
-//         user: row[0]
-//     });
-// }
-
 exports.userMainPage_withdrawMoney_fromAgent = async (req, res, next) => {
     const errors = validationResult(req);
     const { body } = req;
