@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 31, 2023 at 10:07 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.8
+-- Host: localhost
+-- Generation Time: May 17, 2023 at 11:31 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,33 +29,31 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `agents` (
   `id` int(11) NOT NULL,
-  `transactions_id` int(11) DEFAULT NULL,
-  `company_id` int(11) DEFAULT NULL,
-  `users_id` int(11) DEFAULT NULL,
-  `agent_id` int(11) DEFAULT NULL,
-  `agent_number` mediumint(15) DEFAULT NULL,
+  `agent_number` mediumint(255) DEFAULT NULL,
   `agent_name` varchar(40) DEFAULT NULL,
+  `agent_owner_full_names` varchar(100) DEFAULT NULL,
+  `agent_id` int(11) DEFAULT NULL,
   `agent_phone` varchar(14) DEFAULT NULL,
   `agent_email` varchar(250) DEFAULT NULL,
   `agent_password` varchar(250) DEFAULT NULL,
-  `agent_income` float DEFAULT NULL,
-  `agent_prev_bal` float DEFAULT NULL,
-  `agent_new_bal` float DEFAULT NULL,
-  `customer_amt_withdrawn` float DEFAULT NULL,
-  `customer_phone` varchar(30) DEFAULT NULL,
-  `customer_full_names` varchar(100) DEFAULT NULL,
-  `agent_total_income` float DEFAULT NULL,
-  `transaction_hash` varchar(200) DEFAULT NULL,
-  `transaction_status` varchar(50) DEFAULT NULL,
-  `time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `agent_total_bal` decimal(13,2) DEFAULT 0.00,
+  `agent_total_income` decimal(13,2) DEFAULT 0.00,
+  `is_local_user` varchar(10) DEFAULT NULL,
+  `is_agent` varchar(10) DEFAULT NULL,
+  `is_company` varchar(10) DEFAULT NULL,
+  `is_bank` varchar(10) DEFAULT NULL,
+  `time` datetime NOT NULL DEFAULT current_timestamp(),
+  `transactions_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `users_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `agents`
 --
 
-INSERT INTO `agents` (`id`, `transactions_id`, `company_id`, `users_id`, `agent_id`, `agent_number`, `agent_name`, `agent_phone`, `agent_email`, `agent_password`, `agent_income`, `agent_prev_bal`, `agent_new_bal`, `customer_amt_withdrawn`, `customer_phone`, `customer_full_names`, `agent_total_income`, `transaction_hash`, `transaction_status`, `time`) VALUES
-(12, NULL, NULL, NULL, 100, 1234, 'penware', '0700000000', NULL, '1234', NULL, NULL, NULL, 20000, NULL, NULL, NULL, NULL, NULL, '2023-01-24 19:37:13');
+INSERT INTO `agents` (`id`, `agent_number`, `agent_name`, `agent_owner_full_names`, `agent_id`, `agent_phone`, `agent_email`, `agent_password`, `agent_total_bal`, `agent_total_income`, `is_local_user`, `is_agent`, `is_company`, `is_bank`, `time`, `transactions_id`, `company_id`, `users_id`) VALUES
+(18, 5481736, NULL, 'albert lemmy', 12345678, '0123456789', 'nelsonlemmy61@gmail.com', '$2a$12$VVv6xcAMLNraxnllPNDd1.ZmOGV3EzQw.dirfO6LP0aRvWyx1vPlS', '100000.00', '0.00', NULL, 'yes', NULL, NULL, '2023-04-29 21:54:02', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -93,7 +91,7 @@ CREATE TABLE `all_transactions` (
   `current_date` varchar(30) DEFAULT NULL,
   `current_time` varchar(30) DEFAULT NULL,
   `date_time` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `all_transactions`
@@ -314,7 +312,27 @@ INSERT INTO `all_transactions` (`id`, `company_id`, `bank_id`, `agent_id`, `send
 (417, NULL, NULL, NULL, 33, 39, '200.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '6.00', '0.00', 'denos', 'lenos', '0112345678', '0.00', '0.60', 'TID-1832952467', NULL, '<span class=\"random-ids\"><u><b>TID-1832952467</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Jan 29, 2023</b> at <b>9:18 AM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 1,284.00</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Jan 29, 2023', '9:18 AM', '2023-01-29 06:18:31'),
 (418, NULL, NULL, NULL, 33, 39, '200.00', NULL, 'S', NULL, 'nelson', 'lemein', '0741642093', '6.00', '0.00', 'denos', 'lenos', '0112345678', '0.00', '0.60', 'TID-1832952467', '<span class=\"random-ids\"><u><b>TID-1832952467</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> to <b>denos lenos</b> (<span class=\"phone-number\"><u>0112345678</u></span>). On (<b>Jan 29, 2023</b> at <b>9:18 AM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 100,254.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'Jan 29, 2023', '9:18 AM', '2023-01-29 06:18:31'),
 (419, NULL, NULL, NULL, 33, 34, '2000.00', NULL, 'S', NULL, 'nelson', 'lemein', '0741642093', '32.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '3.20', 'TID-9654167458', '<span class=\"random-ids\"><u><b>TID-9654167458</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 2,000.00 </u></b></span> to <b>cate tracy</b> (<span class=\"phone-number\"><u>1234567890</u></span>). On (<b>Jan 29, 2023</b> at <b>2:56 PM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 98,222.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'Jan 29, 2023', '2:56 PM', '2023-01-29 11:56:34'),
-(420, NULL, NULL, NULL, 33, 34, '2000.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '32.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '3.20', 'TID-9654167458', NULL, '<span class=\"random-ids\"><u><b>TID-9654167458</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 2,000.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Jan 29, 2023</b> at <b>2:56 PM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 11,076.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Jan 29, 2023', '2:56 PM', '2023-01-29 11:56:34');
+(420, NULL, NULL, NULL, 33, 34, '2000.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '32.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '3.20', 'TID-9654167458', NULL, '<span class=\"random-ids\"><u><b>TID-9654167458</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 2,000.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Jan 29, 2023</b> at <b>2:56 PM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 11,076.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Jan 29, 2023', '2:56 PM', '2023-01-29 11:56:34'),
+(421, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-6384563974', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6384563974</b></u></span> Warning! Please check your password and try again!', NULL, 'Apr 27, 2023', '9:26 PM', '2023-04-27 18:26:06'),
+(422, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-7128959871', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-7128959871</b></u></span> Warning! Please check your password and try again!', NULL, 'Apr 27, 2023', '10:46 PM', '2023-04-27 19:46:36'),
+(423, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-1736253914', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-1736253914</b></u></span> Warning! Please check your password and try again!', NULL, 'Apr 28, 2023', '5:55 PM', '2023-04-28 14:55:57'),
+(424, NULL, NULL, NULL, 33, NULL, '0.00', 'E', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-6387582749', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6387582749</b></u></span> Failed. You can not send money to your own number! Your number is <span class=\"phone-number\"><u>0741642093</u></span> And recipient number is <span class=\"phone-number\"><u>0741642093</u></span>. Please Check the number And Try Again', 'Apr 28, 2023', '6:30 PM', '2023-04-28 15:30:32'),
+(425, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-6175897654', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6175897654</b></u></span> Failed. You can not send funds less than <span class=\"money\"><b><u>Ksh 5.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 98,222.80</u></b></span> Please top up and try again.', NULL, 'Apr 28, 2023', '6:31 PM', '2023-04-28 15:31:07'),
+(426, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-2956412984', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-2956412984</b></u></span> Warning! You entered a wrong password', NULL, 'Apr 28, 2023', '6:31 PM', '2023-04-28 15:31:41'),
+(427, NULL, NULL, NULL, 33, 34, '70.00', NULL, 'S', NULL, 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '0.00', 'TID-4576932186', '<span class=\"random-ids\"><u><b>TID-4576932186</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 70.00 </u></b></span> to <b>cate tracy</b> (<span class=\"phone-number\"><u>1234567890</u></span>). On (<b>Apr 28, 2023</b> at <b>6:32 PM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 98,152.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'Apr 28, 2023', '6:32 PM', '2023-04-28 15:32:12'),
+(428, NULL, NULL, NULL, 33, 34, '70.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '0.00', 'TID-4576932186', NULL, '<span class=\"random-ids\"><u><b>TID-4576932186</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 70.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Apr 28, 2023</b> at <b>6:32 PM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 11,146.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Apr 28, 2023', '6:32 PM', '2023-04-28 15:32:12'),
+(429, NULL, NULL, NULL, 33, NULL, '0.00', 'E', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-7251365714', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-7251365714</b></u></span> Failed. You can not send money to your own number! Your number is <span class=\"phone-number\"><u>0741642093</u></span> And recipient number is <span class=\"phone-number\"><u>0741642093</u></span>. Please Check the number And Try Again', 'Apr 28, 2023', '6:37 PM', '2023-04-28 15:37:05'),
+(430, NULL, NULL, NULL, 33, 40, '50.00', NULL, 'S', NULL, 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'willy', 'paul', '0711223344', '0.00', '0.00', 'TID-9684379234', '<span class=\"random-ids\"><u><b>TID-9684379234</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 50.00 </u></b></span> to <b>willy paul</b> (<span class=\"phone-number\"><u>0711223344</u></span>). On (<b>Apr 28, 2023</b> at <b>7:00 PM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 98,102.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'Apr 28, 2023', '7:00 PM', '2023-04-28 16:00:56'),
+(431, NULL, NULL, NULL, 33, 40, '50.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'willy', 'paul', '0711223344', '0.00', '0.00', 'TID-9684379234', NULL, '<span class=\"random-ids\"><u><b>TID-9684379234</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 50.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Apr 28, 2023</b> at <b>7:00 PM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 41,235.00</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Apr 28, 2023', '7:00 PM', '2023-04-28 16:00:56'),
+(432, NULL, NULL, NULL, 33, NULL, '0.00', 'E', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-6197272983', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6197272983</b></u></span> Failed. There Is No user with the number <span class=\"phone-number\"><u><b>-10</b></u></span> Please check the number and try again', 'Apr 28, 2023', '11:22 PM', '2023-04-28 20:22:19'),
+(433, NULL, NULL, NULL, 34, NULL, '0.00', 'E', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-4753115682', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-4753115682</b></u></span> Failed. You can not send money to your own number! Your number is <span class=\"phone-number\"><u>1234567890</u></span> And recipient number is <span class=\"phone-number\"><u>1234567890</u></span>. Please Check the number And Try Again', 'Apr 29, 2023', '2:24 PM', '2023-04-29 11:24:22'),
+(434, NULL, NULL, NULL, 33, 34, '20.00', NULL, 'S', NULL, 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '0.00', 'TID-9726598173', '<span class=\"random-ids\"><u><b>TID-9726598173</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 20.00 </u></b></span> to <b>cate tracy</b> (<span class=\"phone-number\"><u>1234567890</u></span>). On (<b>Apr 30, 2023</b> at <b>9:46 AM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 98,082.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'Apr 30, 2023', '9:46 AM', '2023-04-30 06:46:19'),
+(435, NULL, NULL, NULL, 33, 34, '20.00', NULL, NULL, 'R', 'nelson', 'lemein', '0741642093', '0.00', '0.00', 'cate', 'tracy', '1234567890', '0.00', '0.00', 'TID-9726598173', NULL, '<span class=\"random-ids\"><u><b>TID-9726598173</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 20.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Apr 30, 2023</b> at <b>9:46 AM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 11,166.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'Apr 30, 2023', '9:46 AM', '2023-04-30 06:46:19'),
+(436, NULL, NULL, NULL, 33, NULL, '0.00', 'E', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-8369789352', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-8369789352</b></u></span> Failed. You can not send money to your own number! Your number is <span class=\"phone-number\"><u>0741642093</u></span> And recipient number is <span class=\"phone-number\"><u>0741642093</u></span>. Please Check the number And Try Again', 'Apr 30, 2023', '10:24 AM', '2023-04-30 07:24:46'),
+(437, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-9462778461', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-9462778461</b></u></span> Warning! Please check your password and try again!', NULL, 'May 2, 2023', '5:53 PM', '2023-05-02 14:53:08'),
+(438, NULL, NULL, NULL, 33, NULL, '0.00', 'W', NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, '0.00', '0.00', 'TID-3745882617', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-3745882617</b></u></span> Warning! Please check your password and try again!', NULL, 'May 2, 2023', '6:24 PM', '2023-05-02 15:24:40'),
+(439, NULL, NULL, NULL, 34, 33, '120.00', NULL, 'S', NULL, 'cate', 'tracy', '1234567890', '6.00', '0.00', 'nelson', 'lemein', '0741642093', '0.00', '0.60', 'TID-5827348273', '<span class=\"random-ids\"><u><b>TID-5827348273</b></u></span> Confirmed You have successfully sent <span class=\"money\"><b><u>Ksh 120.00 </u></b></span> to <b>nelson lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 17, 2023</b> at <b>8:31 PM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 11,040.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'May 17, 2023', '8:31 PM', '2023-05-17 17:31:26'),
+(440, NULL, NULL, NULL, 34, 33, '120.00', NULL, NULL, 'R', 'cate', 'tracy', '1234567890', '6.00', '0.00', 'nelson', 'lemein', '0741642093', '0.00', '0.60', 'TID-5827348273', NULL, '<span class=\"random-ids\"><u><b>TID-5827348273</b></u></span> Confirmed You have Received <span class=\"money\"><b><u>Ksh 120.00 </u></b></span> from <b>cate</b> <b>tracy</b> (<span class=\"phone-number\"><u>1234567890</u></span>). On (<b>May 17, 2023</b> at <b>8:31 PM</b>) New BOM balance is <span class=\"money\"><b><u>Ksh 98,202.80</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, 'May 17, 2023', '8:31 PM', '2023-05-17 17:31:26');
 
 -- --------------------------------------------------------
 
@@ -327,7 +345,7 @@ CREATE TABLE `argents` (
   `transactions_id` int(11) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   `users_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -339,7 +357,7 @@ CREATE TABLE `banks` (
   `id` int(11) NOT NULL,
   `transactions_id` int(11) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -353,7 +371,7 @@ CREATE TABLE `company` (
   `banks_id` int(11) DEFAULT NULL,
   `agents_id` int(11) DEFAULT NULL,
   `users_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -374,7 +392,7 @@ CREATE TABLE `company_deposited_to_argent` (
   `quantity_argent_received` decimal(10,2) NOT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `hash` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -389,7 +407,7 @@ CREATE TABLE `company_income` (
   `income` float(10,2) DEFAULT 0.00,
   `date` varchar(20) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -405,7 +423,7 @@ CREATE TABLE `error_messages` (
   `date` varchar(20) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
   `date_time` varchar(35) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -420,7 +438,7 @@ CREATE TABLE `in_wallet` (
   `wallet_income` float(10,2) DEFAULT 0.00,
   `date` varchar(20) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `in_wallet`
@@ -517,7 +535,11 @@ INSERT INTO `in_wallet` (`id`, `recipient_id`, `transaction_cost`, `wallet_incom
 (89, 33, 12.00, 1.20, 'Jan 29, 2023', '8:28 AM'),
 (90, 39, 6.00, 0.60, 'Jan 29, 2023', '9:17 AM'),
 (91, 39, 6.00, 0.60, 'Jan 29, 2023', '9:18 AM'),
-(92, 34, 32.00, 3.20, 'Jan 29, 2023', '2:56 PM');
+(92, 34, 32.00, 3.20, 'Jan 29, 2023', '2:56 PM'),
+(93, 34, 0.00, 0.00, 'Apr 28, 2023', '6:32 PM'),
+(94, 40, 0.00, 0.00, 'Apr 28, 2023', '7:00 PM'),
+(95, 34, 0.00, 0.00, 'Apr 30, 2023', '9:46 AM'),
+(96, 33, 6.00, 0.60, 'May 17, 2023', '8:31 PM');
 
 -- --------------------------------------------------------
 
@@ -534,7 +556,7 @@ CREATE TABLE `local_user` (
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
   `country` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -553,7 +575,7 @@ CREATE TABLE `messages` (
   `error_message` text DEFAULT NULL,
   `pending_message` text DEFAULT NULL,
   `time` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -571,7 +593,7 @@ CREATE TABLE `success_messages` (
   `date` varchar(20) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
   `date_time` varchar(35) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -583,7 +605,7 @@ CREATE TABLE `total_company_income` (
   `id` int(11) NOT NULL,
   `company_name` varchar(20) DEFAULT NULL,
   `total_income` float(10,2) DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -595,7 +617,7 @@ CREATE TABLE `total_wallet_income` (
   `id` int(11) NOT NULL,
   `recipient_id` int(11) DEFAULT NULL,
   `total_wallet_income` float(10,2) DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -609,7 +631,7 @@ CREATE TABLE `transactions` (
   `banks_id` int(11) DEFAULT NULL,
   `agents_id` int(11) DEFAULT NULL,
   `users_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -638,22 +660,24 @@ CREATE TABLE `users` (
   `show_balance` tinyint(1) NOT NULL DEFAULT 1,
   `income` decimal(13,2) NOT NULL DEFAULT 0.00,
   `date` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `transactions_id`, `company_id`, `agent_id`, `first_name`, `last_name`, `id_number`, `mobile`, `country`, `email`, `password`, `is_local_user`, `is_agent`, `is_company`, `is_bank`, `public_id`, `balance`, `show_balance`, `income`, `date`) VALUES
-(33, NULL, NULL, NULL, 'nelson', 'lemein', '225468566588', '0741642093', NULL, 'nelson@gmail.com', '$2a$12$1jIX4M6qHi1WFTAX0MhGfO27QHaKWrkCZuIa3ZWqCQ6nV9OyUedLO', 'yes', NULL, NULL, NULL, '926135478', '98222.80', 1, '79.90', '2021-10-13 20:41:47'),
-(34, NULL, NULL, NULL, 'cate', 'tracy', '3434244212', '1234567890', NULL, 'tracy@gmail.com', '$2a$12$zGRI9ShPEu9lpzcEtpI0/uFkP.gt7TQh18KYeHYDRMyi9WgrL5u0.', 'yes', NULL, NULL, NULL, '862435917', '11076.80', 1, '36.60', '2021-10-13 20:45:50'),
+(33, NULL, NULL, NULL, 'nelson', 'lemein', '225468566588', '0741642093', NULL, 'nelson@gmail.com', '$2a$12$1jIX4M6qHi1WFTAX0MhGfO27QHaKWrkCZuIa3ZWqCQ6nV9OyUedLO', 'yes', NULL, NULL, NULL, '926135478', '98202.80', 1, '80.50', '2021-10-13 20:41:47'),
+(34, NULL, NULL, NULL, 'cate', 'tracy', '3434244212', '1234567890', NULL, 'tracy@gmail.com', '$2a$12$zGRI9ShPEu9lpzcEtpI0/uFkP.gt7TQh18KYeHYDRMyi9WgrL5u0.', 'yes', NULL, NULL, NULL, '862435917', '11040.80', 1, '36.60', '2021-10-13 20:45:50'),
 (39, NULL, NULL, NULL, 'denos', 'lenos', '12345678', '0112345678', NULL, 'nn@mail.com', '$2a$12$9gqJNxwB1RKYf7XasLhvLeWhQDuoUznYO.VML5JVyelpyTj6GIv1G', 'yes', NULL, NULL, NULL, '456317829', '1284.00', 1, '8.70', '2021-10-24 14:31:33'),
-(40, NULL, NULL, NULL, 'willy', 'paul', '12323236', '0711223344', NULL, 'willy@gmail.com', '$2a$12$HUtxYkF2dVOsdkd1eY62guPYvaMP6L7moPJY4sh1Fl5gvtz6NcBge', 'yes', NULL, NULL, NULL, '324589617', '41185.00', 1, '2.40', '2022-11-05 17:01:53'),
+(40, NULL, NULL, NULL, 'willy', 'paul', '12323236', '0711223344', NULL, 'willy@gmail.com', '$2a$12$HUtxYkF2dVOsdkd1eY62guPYvaMP6L7moPJY4sh1Fl5gvtz6NcBge', 'yes', NULL, NULL, NULL, '324589617', '41235.00', 1, '2.40', '2022-11-05 17:01:53'),
 (41, NULL, NULL, NULL, 'dani', 'alaves', '12332154', '1212343454', NULL, 'dan@gmail.com', '$2a$12$XYA4EjB0kXm1lnq9lpBjkuZaF7HMELMFUETN.xSm0bEd8rcdrWEQW', 'yes', NULL, NULL, NULL, '518934627', '0.00', 1, '0.00', '2023-01-04 21:09:20'),
 (42, NULL, NULL, NULL, 'Ester', 'Wamboi', '12312312', '0712343456', NULL, 'wambo@gmail.com', '$2a$12$fjJMTRCRl7Wkr9vv.PcJzO3C97xyXtzPCkRlAcMs5jv0dANrVHcl.', 'yes', NULL, NULL, NULL, '285169743', '0.00', 1, '0.00', '2023-01-28 19:48:45'),
 (43, NULL, NULL, NULL, 'Peris', 'Wira', '11223344', '0798765432', NULL, 'wira@gmail.com', '$2a$12$f.1t49KsUnLT1NGQ4rHvqu7Qx/EeUM2AYjdVISC0rc0602G/LqHDm', NULL, NULL, NULL, 'yes', '472689153', '0.00', 1, '0.00', '2023-01-28 19:55:09'),
 (44, NULL, NULL, NULL, 'Brian', 'Kamau', '11223342', '0798765765', NULL, 'brian@gmail.com', '$2a$12$kDMrVtckV88D0XQsdA7W3OFX6531q9EUGYAqU0psMbTBHhvJtm.Am', NULL, NULL, 'yes', NULL, '194853267', '0.00', 1, '0.00', '2023-01-28 19:57:23'),
-(45, NULL, NULL, NULL, 'Anthony', 'Mwangi', '11223343', '0798765743', NULL, 'mwangi@gmail.com', '$2a$12$IDwcdOVmekJGhCWXH3TP.u3leA2BnzPl0KgpCYuXJ0Bi2qxjn5I.e', NULL, 'yes', NULL, NULL, '631952748', '0.00', 1, '0.00', '2023-01-28 19:58:35');
+(45, NULL, NULL, NULL, 'Anthony', 'Mwangi', '11223343', '0798765743', NULL, 'mwangi@gmail.com', '$2a$12$IDwcdOVmekJGhCWXH3TP.u3leA2BnzPl0KgpCYuXJ0Bi2qxjn5I.e', NULL, 'yes', NULL, NULL, '631952748', '0.00', 1, '0.00', '2023-01-28 19:58:35'),
+(46, NULL, NULL, NULL, 'nelly', 'lemmy', '33436166', '07123456789', NULL, 'nelsonlemmy61@gmail.com', '$2a$12$VQR3iaK/VlepjZ5LjijDOeoeRTT0/EsGA8w.oFWKmds/LfVf20aUe', 'yes', NULL, NULL, NULL, '879354126', '0.00', 1, '0.00', '2023-04-25 22:15:50'),
+(47, NULL, NULL, NULL, 'albert', 'tait', '12345678', '0712341234', NULL, 'doe@gmail.com', '$2a$12$M4fplCPFCrZmQyZcmspeaO7nAjTMEWymxb.YoXa3aLjThRuLsk9yu', 'yes', NULL, NULL, NULL, '815794326', '0.00', 1, '0.00', '2023-04-29 17:08:54');
 
 -- --------------------------------------------------------
 
@@ -669,7 +693,7 @@ CREATE TABLE `warning_messages` (
   `date` varchar(20) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
   `date_time` varchar(35) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -679,10 +703,7 @@ CREATE TABLE `warning_messages` (
 -- Indexes for table `agents`
 --
 ALTER TABLE `agents`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `transactions_id` (`transactions_id`),
-  ADD KEY `company_id` (`company_id`),
-  ADD KEY `users_id` (`users_id`) USING BTREE;
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `all_transactions`
@@ -815,13 +836,13 @@ ALTER TABLE `warning_messages`
 -- AUTO_INCREMENT for table `agents`
 --
 ALTER TABLE `agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `all_transactions`
 --
 ALTER TABLE `all_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=441;
 
 --
 -- AUTO_INCREMENT for table `argents`
@@ -863,7 +884,7 @@ ALTER TABLE `error_messages`
 -- AUTO_INCREMENT for table `in_wallet`
 --
 ALTER TABLE `in_wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `local_user`
@@ -905,7 +926,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `warning_messages`
