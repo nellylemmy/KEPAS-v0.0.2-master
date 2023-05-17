@@ -37,7 +37,7 @@ const {
     
     activity,
     help,
-    contact,
+    contactus,
     security,
     privacy,
     legal,
@@ -110,7 +110,7 @@ router.get("/user/sendmoney", ifNotLoggedin, userMainPage_sendMoney_userToUser);
 router.get("/user/mainPage", ifNotLoggedin, withdraw_my_wallet);
 router.get("/user/activity", ifNotLoggedin, activity);
 router.get("/user/help", ifNotLoggedin, help);
-router.get("/user/contact", ifNotLoggedin, contact);
+router.get("/user/contactus", ifNotLoggedin, contactus);
 router.get("/user/security", ifNotLoggedin, security);
 router.get("/user/privacy", ifNotLoggedin, privacy);
 router.get("/user/legal", ifNotLoggedin, legal);
@@ -222,46 +222,6 @@ ifNotLoggedin,
     ],
     userMainPage_withdrawMoney_fromAgent
 );
-
-// router.post("/user/wallet", 
-// ifNotLoggedin,
-// [
-//     body("walletAmount", "enter amount to send to local account")
-//     .notEmpty(),
-//     body("walletPassword", "incorrect password")
-//         .notEmpty()
-//         .trim()
-//         .isLength({ min: 4 }),
-// ],
-// wallet,
-// );
-// router.post("/user/activity", 
-// ifNotLoggedin,activity,
-// );
-// router.post("/user/help", 
-// ifNotLoggedin,help,
-// );
-// router.post("/user/contact", 
-// ifNotLoggedin,contact,
-// );
-// router.post("/user/security", 
-// ifNotLoggedin,security,
-// );
-// router.post("/user/privacy", 
-// ifNotLoggedin,privacy,
-// );
-// router.post("/user/legal", 
-// ifNotLoggedin,legal,
-// );
-// router.post("/user/notifications", 
-// ifNotLoggedin,notifications,
-// );
-// router.post("/user/account", 
-// ifNotLoggedin,account,
-// );
-// router.post("/user/sendandwithdraw", 
-// ifNotLoggedin,sendAndWithdraw,
-// );
 
 router.post("/agent/complete", 
 ifAgentNotLoggedin, 

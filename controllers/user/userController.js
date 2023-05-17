@@ -201,13 +201,10 @@ exports.userMainPage_withdrawMoney_fromAgent = async (req, res, next) => {
     const errors = validationResult(req);
     const { body } = req;
 
-    // const agentNumber = body.agentNumber;
-    // const amountWithdrawn = body.amountToWithdraw;
+    const agentNumber = parseInt(body.agentNumber);
+    const amountWithdrawn = parseFloat(body.amountToWithdraw);
 
-    await dbConnection.execute("UPDATE `agents` SET `customer_amt_withdrawn` =? WHERE `agent_number`=?", [body.amountToWithdraw, body.agentNumber]);
-
-    console.log('user successfully withdaw the money');
-
+    const [agentRow] = await dbConnection.execute("SELECT * FROM `agents` WHERE `agent_number`=?", [agentNumber]);
 
     res.redirect('./mainPage')
 }
@@ -240,11 +237,11 @@ exports.withdraw_my_wallet = async (req,res,next) => {
     const addIncomeAndBalance = parseFloat(userCurrentLocalBalance + userCurrentWalletBalance).toFixed(2);
 
     if(userWalletAmount <= 1 || userWalletAmount == NaN || userWalletAmount == null || userWalletAmount == undefined || userWalletAmount == " "){
-        res.send(`<h3>Warning! You can not transact amount less than 2Ksh</h3> <br><br> <button><a href="/">GO BACK</a></button>`)
+        res.send(`<h3>Warning! You can not transact amount less than 2Ksh</h3> <br><br> <button><a href="./wallet">GO BACK</a></button>`)
         return;
     }
     if(userWalletAmount > userCurrentWalletBalance){
-        res.send(`<h3>Warning! can not transact amount more than ${userCurrentWalletBalance}</h3> <br><br> <button><a href="/">GO BACK</a></button>`)
+        res.send(`<h3>Warning! can not transact amount more than ${userCurrentWalletBalance}</h3> <br><br> <button><a href="./wallet">GO BACK</a></button>`)
         return;
     }
         
@@ -254,14 +251,32 @@ exports.withdraw_my_wallet = async (req,res,next) => {
         
         let warningMessage = `<span class="random-ids"><u><b>${warningTransactionId}</b></u></span> Warning! Please check your password and try again!`
 
-        dbConnection.execute(
-            "INSERT INTO `all_transactions` (`sender_id`,`mode`,`transaction_id`,`warning_message`,`current_date`,`current_time`) VALUES (?,?,?,?,?,?)",
-            [row[0].id,transactionMode,warningTransactionId,warningMessage,walletCurrentDate,walletCurrentTime]
-            );
+        // dbConnection.execute(
+        //     "INSERT INTO `all_transactions` (`sender_id`,`mode`,`transaction_id`,`warning_message`,`current_date`,`current_time`) VALUES (?,?,?,?,?,?)",
+        //     [row[0].id,transactionMode,warningTransactionId,warningMessage,walletCurrentDate,walletCurrentTime]
+        //     );
 
         res.send(`<h3>Warning! Please check your password and try again!</h3> <br><br> <button><a href="/">GO BACK</a></button>`)
         return;
     }
+
+    // calculate the remaining income balance
+    
+    if(!(userWalletAmount > userCurrentWalletBalance)){
+
+        // Update user balance
+        addIncomeAndBalance
+
+        // Update user wallet balance
+        let walletBalanceAfterUserWithdraw = userCurrentWalletBalance - userWalletAmount;
+
+
+        console.log(walletBalanceAfterUserWithdraw.toFixed(2))
+
+        res.send(`<h3>The user current wallet balance is ${walletBalanceAfterUserWithdraw.toFixed(2)}</h3> <br><br> <button><a href="./wallet">GO BACK</a></button>`)
+        return;
+    }
+
 
        
 
@@ -1110,10 +1125,10 @@ exports.help = async (req, res, next) => {
     });
     
 }
-exports.contact = async (req, res, next) => {
+exports.contactus = async (req, res, next) => {
     const [row] = await dbConnection.execute("SELECT * FROM `users` WHERE `id`=?", [req.session.userID]);
 
-    res.render('user/contact', {
+    res.render('user/contactus', {
         user: row[0],
     });
     
