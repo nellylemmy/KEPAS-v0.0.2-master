@@ -88,6 +88,7 @@ let dbConnection = mysql.createPool({
 
 // dbConnection.query('ALTER TABLE `transactions`ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`banks_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`agents_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL')
 
+dbConnection.query('CREATE TABLE IF NOT EXISTS example_table (`id` int(11) PRIMARY KEY NOT NULL,`transactions_id` int(11) DEFAULT NULL,`banks_id` int(11) DEFAULT NULL,`agents_id` int(11) DEFAULT NULL,`users_id` int(11) DEFAULT NULL)');
 
 
 
