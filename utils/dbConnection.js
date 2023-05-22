@@ -12,6 +12,19 @@ let dbConnection = mysql.createPool({
     CREATE ALL TABLES .
 */
 
+
+// dbConnection.query('CREATE TABLE IF NOT EXISTS `agents` (`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,`agent_number` mediumint(255) DEFAULT NULL,`agent_name` varchar(40) DEFAULT NULL,`agent_owner_full_names` varchar(100) DEFAULT NULL,`agent_id` int(11) DEFAULT NULL,`agent_phone` varchar(14) DEFAULT NULL,`agent_email` varchar(250) DEFAULT NULL,`agent_password` varchar(250) DEFAULT NULL,`agent_total_bal` decimal(13,2) DEFAULT 0.00,`agent_total_income` decimal(13,2) DEFAULT 0.00,`is_local_user` varchar(10) DEFAULT NULL,`is_agent` varchar(10) DEFAULT NULL,`is_company` varchar(10) DEFAULT NULL,`is_bank` varchar(10) DEFAULT NULL,`time` datetime NOT NULL DEFAULT current_timestamp(),`transactions_id` int(11) DEFAULT NULL,`company_id` int(11) DEFAULT NULL,`users_id` int(11) DEFAULT NULL, FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`) ON DELETE SET NULL, FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL, FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL)');
+
+// dbConnection.execute('ALTER TABLE `agents`MODIFY `id` int(11) NOT NULL AUTO_INCREMENT');
+
+
+// dbConnection.query('CREATE TABLE IF NOT EXISTS `all_transactions` (`id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,`company_id` int(11) DEFAULT NULL,`bank_id` int(11) DEFAULT NULL,`agent_id` int(11) DEFAULT NULL,`sender_id` int(11) DEFAULT NULL,`recipient_id` int(11) DEFAULT NULL,`amount` decimal(13,2) DEFAULT 0.00,`mode` varchar(10) DEFAULT NULL,`sender_mode` varchar(10) DEFAULT NULL,`recipient_mode` varchar(10) DEFAULT NULL,`sender_first_name` varchar(30) DEFAULT NULL,`sender_last_name` varchar(30) DEFAULT NULL,`sender_mobile` varchar(15) DEFAULT NULL,`sender_transaction_cost` decimal(13,2) DEFAULT 0.00,`sender_income` decimal(13,2) DEFAULT 0.00,`recipient_first_name` varchar(30) DEFAULT NULL,`recipient_last_name` varchar(30) DEFAULT NULL,`recipient_mobile` varchar(15) DEFAULT NULL,`recipient_transaction_cost` decimal(13,2) DEFAULT 0.00,`recipient_income` decimal(13,2) DEFAULT 0.00,`transaction_id` varchar(30) DEFAULT NULL,`sender_success_message` longtext DEFAULT NULL,`recipient_success_message` longtext DEFAULT NULL,`pending_message` longtext DEFAULT NULL,`warning_message` longtext DEFAULT NULL,`error_message` longtext DEFAULT NULL,`current_date` varchar(30) DEFAULT NULL,`current_time` varchar(30) DEFAULT NULL,FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL, FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL, FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL, FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE SET NULL, FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,`date_time` timestamp NOT NULL DEFAULT current_timestamp())');
+
+// dbConnection.query('ALTER TABLE `all_transactions`MODIFY `id` int(11) NOT NULL AUTO_INCREMENT')
+
+
+
+
 // Table structure for table `users`
 
 // dbConnection.query('CREATE TABLE IF NOT EXISTS users (`id` int(11) NOT NULL,`transactions_id` int(11) DEFAULT NULL,`company_id` int(11) DEFAULT NULL,`agent_id` int(11) DEFAULT NULL,`first_name` varchar(100) DEFAULT NULL,`last_name` varchar(100) DEFAULT NULL,`id_number` varchar(100) DEFAULT NULL,`mobile` varchar(14) DEFAULT NULL,`country` varchar(30) DEFAULT NULL,`email` varchar(200) DEFAULT NULL,`password` varchar(250) DEFAULT NULL,`is_local_user` varchar(10) DEFAULT NULL,`is_agent` varchar(10) DEFAULT NULL,`is_company` varchar(10) DEFAULT NULL,`is_bank` varchar(10) DEFAULT NULL,`public_id` varchar(14) DEFAULT NULL,`balance` decimal(10,2) NOT NULL DEFAULT 0.00,`income` decimal(10,2) NOT NULL DEFAULT 0.00,`date` datetime NOT NULL DEFAULT current_timestamp())')
@@ -89,11 +102,5 @@ let dbConnection = mysql.createPool({
 // dbConnection.query('ALTER TABLE `transactions`ADD FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`banks_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`agents_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL,ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL')
 
 dbConnection.query('CREATE TABLE IF NOT EXISTS example_table (`id` int(11) PRIMARY KEY NOT NULL,`transactions_id` int(11) DEFAULT NULL,`banks_id` int(11) DEFAULT NULL,`agents_id` int(11) DEFAULT NULL,`users_id` int(11) DEFAULT NULL)');
-
-
-
-
-
-
 
 module.exports = dbConnection.promise();

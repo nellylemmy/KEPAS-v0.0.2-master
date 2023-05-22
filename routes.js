@@ -350,18 +350,14 @@ router.post(
 );
 
 
-router.get('/logout', (req, res, next) => {
-    req.session.destroy((err) => {
-        next(err);
-    });
-    res.redirect('./user/login');
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => err);
+    res.redirect('/');
 });
 
-router.get('/agentlogout', (req, res, next) => {
-    req.session.destroy((err) => {
-        next(err);
-    });
-    res.redirect('./agent/login');
+router.get('/agentlogout', (req, res) => {
+    req.session.destroy((err) => err);
+    res.redirect('/');
 });
 
 module.exports = router;

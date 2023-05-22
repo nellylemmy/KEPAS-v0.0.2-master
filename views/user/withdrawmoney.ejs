@@ -50,7 +50,7 @@
         </div>
         <div class="agent-details">
           <span class="main_title">Withdraw from Agent</span>
-          <span class="verify-agent-name">NAME: bramuk entreprice LTD</span>
+          <span class="verify-agent-name">NAME: bramuk entreprice LTD 4238619</span>
         </div>
 
 
@@ -81,19 +81,6 @@
                   <label for="userPassword">Password <span class="star">*</span> </label>
 
                   <input class="form-input" placeholder="Enter Your Password" oninput="this.className = ''" name="userPassword" type="password" autocomplete="on" required>
-              </p>
-          </div>
-
-          <div class="withdraw-money-tab adjust-to-fit center-content">
-              <p class="terms-step">
-                  <span>
-                      By clicking here, you agree to our Terms & Conditions. 
-                  </span>
-
-                  <div class="in-terms mt-1">
-                      <input type="checkbox" value="yes" onclick="confirm_agent(this)" required> <label class="check">Agree our <a href="#">Terms</a></label>
-                  </div>
-                  
               </p>
           </div>
 
@@ -146,10 +133,8 @@ function showWithdrawMoneyGenesisTab(n) {
     document.getElementById("withdrawMoneyPrevBtn").style.visibility = "visible";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("withdrawMoneyNextBtn").disabled = true;
     document.getElementById("withdrawMoneyNextBtn").innerHTML = "Submit";
   } else {
-    document.getElementById("withdrawMoneyNextBtn").disabled = false;
     document.getElementById("withdrawMoneyNextBtn").innerHTML = "Next &rightarrow;";
   }
   }
