@@ -4,11 +4,64 @@ const { validationResult } = require("express-validator");
 const bcrypt = require('bcryptjs');
 const dbConnection = require("../../utils/dbConnection");
 const moment = require('moment');
+const { DateTime } = require("luxon");
 const express = require('express');
 const app = express();
 const flash = require('connect-flash');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const crypto = require('crypto');
+
+const algorithm = 'aes-192-cbc';
+const password = 'some password to make it harder!..';
+const encryptionKey = crypto.scryptSync(password, 'GfG', 24)
+const iv = Buffer.alloc(16, 3);
+
+function encryptTableName(tableName) {
+  const cipher = crypto.createCipheriv(algorithm, encryptionKey, iv);
+  let encrypted = cipher.update(tableName, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+function decryptTableName(encryptedTableName) {
+  const decipher = crypto.createDecipheriv(algorithm, encryptionKey, iv);
+  let decrypted = decipher.update(encryptedTableName, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
+// Example usage
+let tableName;
+
+function createUserTableName(){
+    tableName = 'users_data_set_1_table' // Users Table
+    const encryptedTableName = encryptTableName(tableName);
+    console.log(encryptedTableName)
+    return encryptedTableName;
+    // console.log('Encrypted Table Name:', encryptedTableName);
+    
+    // const decryptedTableName = decryptTableName(encryptedTableName);
+    // console.log('Decrypted Table Name:', decryptedTableName);
+}
+
+let users_table = createUserTableName();
+
+dbConnection.execute(`CREATE TABLE IF NOT EXISTS ${users_table} (
+\`id\` int(11) PRIMARY KEY NOT NULL,
+\`transactions_id\` int(11) DEFAULT NULL,
+\`banks_id\` int(11) DEFAULT NULL,
+\`agents_id\` int(11) DEFAULT NULL,
+\`users_id\` int(11) DEFAULT NULL
+)`);
+
+
+
+
+
+
+
+// `CREATE TABLE IF NOT EXISTS ${myT} ('id' int(11) PRIMARY KEY NOT NULL,'transactions_id' int(11) DEFAULT NULL,'banks_id' int(11) DEFAULT NULL,'agents_id' int(11) DEFAULT NULL,'users_id' int(11) DEFAULT NULL)`
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
 // const chartjs = require('chart.js');
 
 // app.use(cookieParser('secretStringForCookies'));
@@ -25,6 +78,7 @@ const session = require('express-session');
 app.use(express.json());
 
 app.use(flash());
+
 // generate argent number
 let generateRandomNumbers = function(amount, limit) {
     var result = [],
@@ -40,6 +94,7 @@ let generateRandomNumbers = function(amount, limit) {
   const argentNumber = generateRandomNumbers(6, 9).join('');
   const companyNumber = generateRandomNumbers(5,9).join('');
   const bankNumber = generateRandomNumbers(4,9).join('');
+  
 
 // get users
 exports.allUsers = async(req,res,next) => {
@@ -50,6 +105,16 @@ exports.allUsers = async(req,res,next) => {
     }
 
     res.send(usersRow)
+}
+
+exports.allAgents = async(req,res,next) => {
+    const [agentRow] = await dbConnection.execute("SELECT agent_number AS RN, agent_name AS AN FROM agents ORDER BY id DESC")
+
+    if(agentRow.length < 1){
+        return res.send('error occured');
+    }
+
+    res.send(agentRow)
 }
 
 // get transactions
@@ -200,9 +265,11 @@ exports.agentHomePage = async (req, res, next) => {
 
 
 exports.userMainPage_withdrawMoney_fromAgent = async (req, res, next) => {
-    const currentTimeAndDate = moment().format('llll');
+    // const currentTimeAndDate = moment().format('llll');
     const currentTime = moment().format('LT');
     const currentDate = moment().format('ll');
+    const now = DateTime.now();
+    console.log(`now is ${now}`)
 
     // generate transaction ID:
     const transactionId1 = generateRandomNumbers(5, 9).join('');
@@ -336,7 +403,7 @@ exports.userMainPage_withdrawMoney_fromAgent = async (req, res, next) => {
 
     if(rowAgentNumber.length == 1){
 
-        if(parseFloat(body.amountToWithdraw) <= 49){
+        if(parseFloat(body.amountToWithdraw) < 50){
             let warningTransactionId = `TID-${transactionId1 + transactionId2}`
             let transactionMode = 'W';
             const minimumAmount = 50.00;
@@ -461,13 +528,11 @@ let [oldAgentWalletIncome] = await dbConnection.execute(
     }
 
     let currentAgentName;
-    let currentAgentNumber;
     const getAgentNames = ()=>{
         rowAgentNumber.forEach(agentData => {
-            // currentAgentName = agentData.first_name
-            currentAgentNumber = agentData.agent_number
+            currentAgentName = agentData.agent_name
         });
-        return currentAgentNumber;
+        return currentAgentName;
     }
 
     console.log(getAgentNames());
@@ -480,9 +545,9 @@ let [oldAgentWalletIncome] = await dbConnection.execute(
 
         dbConnection.execute("UPDATE `agents` SET `agent_total_bal` =?, `agent_total_income` =? WHERE `agent_number`=?", [calculateAgentBalance, calculateAgentIncomeBalance, agentNumber]);
 
-        const senderSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have successfully sent <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.agentQuantity).slice(4)} </u></b></span> to <b>${getAgentNames()}</b> (<span class="phone-number"><u>${agentNumber}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>). New BOM balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculatedSenderBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.`
+        const senderSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have successfully withdraw <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.amountToWithdraw).slice(4)} </u></b></span> from <b>${getAgentNames()}</b> (<span class="phone-number"><u>${agentNumber}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>). New KEPAS balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculatedSenderBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.`
 
-        const recipeintSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have Received <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.agentQuantity).slice(4)} </u></b></span> from <b>${row[0].first_name}</b> <b>${row[0].last_name}</b> (<span class="phone-number"><u>${row[0].mobile}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>) New BOM balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculateAgentBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.`;
+        const recipeintSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You Received <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.amountToWithdraw).slice(4)} </u></b></span> from <b>${row[0].first_name}</b> <b>${row[0].last_name}</b> (<span class="phone-number"><u>${row[0].mobile}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>) New agent balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculateAgentBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.`;
 
         const [getAllAgentData] = await dbConnection.execute("SELECT * FROM `agents` WHERE `agent_number`=?", [agentNumber]);
 
@@ -490,10 +555,10 @@ let [oldAgentWalletIncome] = await dbConnection.execute(
         let agentTransactionMode = 'R'; //W stands for Agent
 
             // sender
-        // dbConnection.execute(
-        //     "INSERT INTO `all_transactions` (`sender_id`,`agent_id`,`amount`,`sender_mode`,`sender_first_name`,`sender_last_name`,`sender_mobile`,`sender_transaction_cost`,`sender_income`,`agent_first_name`,`agent_last_name`,`agent_mobile`,`agent_transaction_cost`,`agent_income`,`transaction_id`,`sender_success_message`,`current_date`,`current_time`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        //     [row[0].id,getAllAgentData[0].id,parseFloat(body.agentQuantity),senderTransactionMode,row[0].first_name,row[0].last_name,row[0].mobile,parseFloat(totalIncome),senderIncome,getAllAgentData[0].first_name,getAllAgentData[0].last_name,getAllAgentData[0].mobile,agentTransactionCost,agentIncome,successTransactionIds,senderSuccessMessage,currentDate,currentTime]
-        //     ); 
+        dbConnection.execute(
+            "INSERT INTO `all_transactions` (`sender_id`,`agent_id`,`amount`,`mode`,`sender_first_name`,`sender_last_name`,`sender_mobile`,`sender_transaction_cost`,`sender_income`,`agent_name`,`agent_number`,`agent_mobile`,`transaction_id`,`sender_success_message`,`current_date`,`current_time`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            [row[0].id,getAllAgentData[0].id,parseFloat(body.amountToWithdraw),senderTransactionMode,row[0].first_name,row[0].last_name,row[0].mobile,parseFloat(totalIncome),senderIncome,getAllAgentData[0].agent_name,getAllAgentData[0].agent_number,getAllAgentData[0].agent_phone,successTransactionIds,senderSuccessMessage,currentDate,currentTime]
+            ); 
 
             // agent
         dbConnection.execute(
@@ -505,14 +570,20 @@ let [oldAgentWalletIncome] = await dbConnection.execute(
         // dbConnection.execute(
         //     "INSERT INTO `in_wallet` (`agent_id`, `transaction_cost`, `wallet_income`, `date`, `time`) VALUES (?,?,?,?,?)", [getAllAgentData[0].id, parseFloat(totalIncome), agentIncome, currentDate, currentTime]
         // );
+
+        res.send(`<div class="send-page"><h3>You have successfully withdraw ${parseFloat(body.amountToWithdraw)} from ${getAllAgentData[0].agent_name} ( ${agentNumber} ). Your new balance is: ${calculatedSenderBalance}. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM. </h3> <br><br> <button><a href="/">GO BACK</a></button></div>`);
+    return;
         }
+
+     
+    
     }
 
     // req.flash('info', 'Successfully')
     // res.redirect('./mainPage')
 
-    res.send(`<div class="send-page"><h3>You have successfully sent ${parseFloat(body.agentQuantity)} to ${agentNumber}. New balance is: ${calculatedSenderBalance}. Thank you choosing our platform. BOM, with you everywhere. </h3> <br><br> <button><a href="/">GO BACK</a></button></div>`);
-    return;
+    // res.send(`<div class="send-page"><h3>You have successfully withdraw ${parseFloat(body.amountToWithdraw)} from ${getAllAgentData[0].agent_name} ( ${agentNumber} ). Your new balance is: ${calculatedSenderBalance}. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM. </h3> <br><br> <button><a href="/">GO BACK</a></button></div>`);
+    // return;
 }
 
 
@@ -945,9 +1016,9 @@ let [oldRecipientWalletIncome] = await dbConnection.execute(
 
         // dbConnection.execute("UPDATE `users` SET `balance` =? WHERE `mobile`=?", [calculateRecipientBalance, recipientNumber]);
 
-        const senderSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have successfully sent <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.recipientQuantity).slice(4)} </u></b></span> to <b>${getRecipientNames()}</b> (<span class="phone-number"><u>${recipientNumber}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>). New BOM balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculatedSenderBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.`
+        const senderSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have successfully sent <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.recipientQuantity).slice(4)} </u></b></span> to <b>${getRecipientNames()}</b> (<span class="phone-number"><u>${recipientNumber}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>). New KEPAS balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculatedSenderBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.`
 
-        const recipeintSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have Received <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.recipientQuantity).slice(4)} </u></b></span> from <b>${row[0].first_name}</b> <b>${row[0].last_name}</b> (<span class="phone-number"><u>${row[0].mobile}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>) New BOM balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculateRecipientBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.`;
+        const recipeintSuccessMessage = `<span class="random-ids"><u><b>${successTransactionIds}</b></u></span> Confirmed You have Received <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(body.recipientQuantity).slice(4)} </u></b></span> from <b>${row[0].first_name}</b> <b>${row[0].last_name}</b> (<span class="phone-number"><u>${row[0].mobile}</u></span>). On (<b>${currentDate}</b> at <b>${currentTime}</b>) New KEPAS balance is <span class="money"><b><u>Ksh ${Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(calculateRecipientBalance).slice(4)}</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.`;
 
         const [getAllRecipientData] = await dbConnection.execute("SELECT * FROM `users` WHERE `mobile`=?", [body.recipientNumber]);
 
@@ -976,7 +1047,7 @@ let [oldRecipientWalletIncome] = await dbConnection.execute(
     // req.flash('info', 'Successfully')
     // res.redirect('./mainPage')
 
-    res.send(`<div class="send-page"><h3>You have successfully sent ${parseFloat(body.recipientQuantity)} to ${recipientNumber}. New balance is: ${calculatedSenderBalance}. Thank you choosing our platform. BOM, with you everywhere. </h3> <br><br> <button><a href="/">GO BACK</a></button></div>`);
+    res.send(`<div class="send-page"><h3>You have successfully sent ${parseFloat(body.recipientQuantity)} to ${recipientNumber}. New balance is: ${calculatedSenderBalance}. Thank you choosing our platform. KEPAS, with you everywhere. </h3> <br><br> <button><a href="/">GO BACK</a></button></div>`);
     return;
 }
 
@@ -1273,7 +1344,40 @@ exports.register = async (req, res, next) => {
 };
 
 exports.agentRegister = async (req, res, next) => {
-    console.log('from agent-register')
+// Array containing all the names
+const names = [
+    // Fruits
+    "Mango", "Apple", "Banana", "Orange", "Pineapple", "Watermelon", "Grapes", "Strawberry", "Kiwi", "Peach", "Pear", "Blueberry", "Raspberry", "Lemon", "Lime", "Avocado", "Papaya", "Coconut", "Cherry", "Plum", "Guava", "Pomegranate", "Fig", "Apricot", "Cranberry", "Blackberry", "Grapefruit", "Lychee", "Passion fruit", "Persimmon", "Dragon fruit", "Cantaloupe", "Honeydew melon", "Nectarine", "Tangerine", "Elderberry", "Mulberry", "Gooseberry", "Boysenberry", "Currant", "Jackfruit", "Star fruit", "Plantain", "Acerola", "Quince", "Ackee", "Jabuticaba", "Rambutan", "Durian", "Ugli fruit", "Mangosteen", "Kumquat", "Carambola", "Chayote", "Pawpaw", "Feijoa", "Tamarind", "Loquat", "Jujube", "Soursop", "Mamey sapote", "Longan", "Kiwano", "Prickly pear", "Guanabana", "Breadnut", "Maracuja", "Cupuacu", "Damson plum", "Sloe", "Physalis", "Cloudberry", "Aronia", "Juneberry", "Bael fruit", "Indian gooseberry", "Calamondin", "Karanda", "Yellow passion fruit", "Miracle fruit", "Monstera deliciosa", "Salak", "Santa Claus melon", "Horned cantaloupe", "Lemon drop melon", "Casaba melon", "Pepino melon", "Crenshaw melon", "Sharlyn melon", "Galia melon", "Canary melon", "Ogen melon", "Charentais melon", "Piel de Sapo melon", "Sprite melon", "Hami melon",
+    
+    // Animals
+    "Lion", "Elephant", "Giraffe", "Tiger", "Cheetah", "Zebra", "Hippopotamus", "Rhino", "Gorilla", "Chimpanzee", "Orangutan", "Panda", "Koala", "Kangaroo", "Platypus", "Dolphin", "Whale", "Shark", "Octopus", "Jellyfish", "Seahorse", "Turtle", "Crocodile", "Alligator", "Snake", "Lizard", "Gecko", "Chameleon", "Frog", "Toad", "Salamander", "Newt", "Bat", "Squirrel", "Chipmunk", "Raccoon", "Fox", "Wolf", "Coyote", "Dog", "Cat", "Lionfish", "Swordfish", "Penguin", "Ostrich", "Emu", "Peacock", "Flamingo", "Eagle", "Falcon", "Hawk", "Owl", "Toucan", "Parrot", "Pelican", "Swan", "Duck", "Goose", "Chicken", "Rooster", "Turkey", "Pigeon", "Sparrow", "Hummingbird", "Bee", "Butterfly", "Ladybug", "Ant", "Grasshopper", "Cricket", "Beetle", "Spider", "Scorpion", "Centipede", "Millipede", "Snail", "Slug", "Worm", "Armadillo", "Hedgehog", "Rabbit", "Hare", "Mouse", "Rat", "Hamster", "Guinea pig", "Ferret", "Chinchilla", "Gerbil", "Mole", "Otter", "Seal", "Walrus", "Beaver", "Raccoon dog", "Skunk", "Meerkat", "Lemur", "Squirrel monkey", "Tamarin", "Gibbon", "Capuchin", "Baboon", "Mandrill", "Macaque", "Vervet monkey", "Red panda", "Wombat", "Tasmanian devil", "Wallaby", "Quokka", "Dingo", "Platypus", "Tasmanian tiger", "Alpaca", "Llama", "Camel", "Reindeer", "Moose", "Caribou", "Bison", "Yak", "Water buffalo", "Musk ox",
+    
+    // Cars
+    "Toyota", "Camry", "Honda", "Civic", "Ford", "Mustang", "Chevrolet", "Corvette", "BMW", "Series", "Mercedes-Benz", "C-Class", "Audi", "A4", "Nissan", "Altima", "Volkswagen", "Golf", "Tesla", "Model", "Subaru", "Impreza", "Mazda", "Hyundai", "Elantra", "Kia", "Optima", "Lexus", "ES", "Jeep", "Wrangler", "GMC", "Sierra", "Ram", "F-", "Silverado", "Tacoma", "Accord", "Passat", "Outback", "CX-", "Santa", "Fe", "Sorento", "RX", "Grand", "Cherokee", "Yukon", "Explorer", "Traverse", "Highlander", "Pilot", "E-Class", "Q7", "Murano", "Tiguan", "Forester", "Kona", "Soul", "Compass", "Canyon", "ProMaster", "Expedition", "Tahoe", "Land", "Cruiser", "Odyssey", "LS", "Renegade", "Bolt", "EV", "Prius", "Insight", "EQC", "e-tron", "Leaf", "ID.", "XV", "MX-", "Tucson", "Niro",
+    
+    // Trees
+    "Nymph", "Plum", "Stick", "Azo", "Red", "Maple", "Blue", "Aspen", "Yew", "Palm", "Bamboo", "Alder", "Ginkgo", "Boxwood", "Banyan", "Dogwood", "Jacaranda", "Magnolia", "Willow", "Olive", "Ebony", "Laurel", "Larch", "Tulip", "Teak", "Weeping", "Yellow", "Quaking", "African", "Giant", "Black", "California", "Eastern", "English", "European", "Flowering", "Japanese", "Joshua", "Kentucky", "King", "Lacebark", "Leyland", "London", "Maidenhair", "Mahogany", "Oak", "Palm", "Pine", "Redwood", "Sequoia", "Sycamore", "Willow"
+  ];
+  
+  // Function to generate a random name
+  function generateRandomName() {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+  }
+  
+  // Example usage
+  const randomName = generateRandomName();
+  console.log(randomName);
+  
+  const number = 2342536;
+  const firstFourDigits = Number(String(number).slice(0, 4));
+  
+  console.log(firstFourDigits); // Output: 2342
+  
+  const agentExtensionName = `${randomName}-${firstFourDigits}`;
+  console.log(agentExtensionName)
+
+  
     const errors = validationResult(req);
     const { body } = req;
     
@@ -1442,8 +1546,11 @@ exports.withdrawMoney = async (req, res, next) => {
 exports.activity = async (req, res, next) => {
     const [row] = await dbConnection.execute("SELECT * FROM `users` WHERE `id`=?", [req.session.userID]);
 
+    const [gMessages] = await dbConnection.execute("SELECT * FROM `all_transactions` WHERE `sender_id`=? OR `recipient_id`=? ORDER BY `date_time` DESC",[req.session.userID, req.session.userID]);
+
     res.render('user/activity', {
         user: row[0],
+        msgGeneral:gMessages,
     });
     
 }

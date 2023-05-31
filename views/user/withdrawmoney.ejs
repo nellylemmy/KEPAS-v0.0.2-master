@@ -50,7 +50,6 @@
         </div>
         <div class="agent-details">
           <span class="main_title">Withdraw from Agent</span>
-          <span class="verify-agent-name">NAME: bramuk entreprice LTD 4238619</span>
         </div>
 
 
@@ -72,7 +71,7 @@
               <p>
                   <label for="amountToWithdra">Amount <span class="star">*</span> </label>
 
-                  <input class="form-input" type="number" min="0" step="0.01" placeholder="Enter Amount" oninput="this.className = ''" name="amountToWithdraw" required >
+                  <input id="to__withdraw" class="form-input" type="number" min="0" step="0.01" placeholder="Enter Amount" oninput="this.className = ''" name="amountToWithdraw" required >
               </p>
           </div>
 
@@ -83,6 +82,12 @@
                   <input class="form-input" placeholder="Enter Your Password" oninput="this.className = ''" name="userPassword" type="password" autocomplete="on" required>
               </p>
           </div>
+
+          <div class="withdraw-money-tab">
+            <p>
+            <label id="confirmation-message" for="userPassword"></label>
+            </p>
+        </div>
 
           <div class="next-prev-btns">
               
@@ -134,6 +139,33 @@ function showWithdrawMoneyGenesisTab(n) {
   }
   if (n == (x.length - 1)) {
     document.getElementById("withdrawMoneyNextBtn").innerHTML = "Submit";
+    const getUserInput = document.getElementById('agent__no');
+    const getUserToWithdraw = document.getElementById('to__withdraw');
+    const getUserToWithdrawValue = getUserToWithdraw.value;
+    const inputValue = getUserInput.value;
+    console.log(inputValue)
+    const targetRN = parseInt(inputValue) //5472138; // The specific RN value you want to fetch
+
+fetch('http://localhost:5000/api/agents')
+  .then(res => res.json())
+  .then(data => {
+    // Search for the user with the specified RN value
+    const targetUser = data.find(user => user.RN === targetRN);
+
+    // Check if a user with the specified RN was found
+    if (targetUser) {
+      console.log('User found:');
+      console.log(`agent no: ${targetUser.RN} argent name: ${targetUser.AN}`);
+      document.getElementById('confirmation-message').innerHTML = `<p><b>Confirm Agent Details: &check; </b> <br> <b>Agent Name: <code>${targetUser.AN}</code> </b><br> <b>Agent Number: <code>${targetUser.RN}</code> </b> <br><b>Amount: Ksh <code>${getUserToWithdrawValue}</code></b></p>`;
+    } else {
+      console.log('User not found.');
+      document.getElementById('confirmation-message').innerHTML = `<p>We did not find that agent number! </p>`;
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
   } else {
     document.getElementById("withdrawMoneyNextBtn").innerHTML = "Next &rightarrow;";
   }

@@ -115,6 +115,58 @@
               <div class="sms-content-id wallet-income-data hide"><%= message.recipient_income %> </div>
               </div>
           <% }%>
+
+          <% if(message.sender_id === user.id & message.mode === 'S'){ %>   
+            <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <span class="sms-image s">UW</span>
+            <div class="sms-real-body">
+            <div class="sms-content-id date-time hide"><%= message.current_date %> | <%= message.current_time %></div>
+            <div class="time"><span>Success &checkmark;</span><span class="px-2"><%= message.current_date %> | <%= message.current_time %></span></div>
+            <div class="sms-content-id transaction-id"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+            <div class="sms-content-id amount hide"><%= message.amount %></div>
+            <div class="sms hide"><%= message.sender_success_message %></div>
+
+            <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+
+            <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+
+            <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+
+            <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+
+            <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+
+            <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+            
+            <div class="sms-content-id wallet-income-data hide"><%= message.sender_income %> </div>
+            </div>
+        <% }%>
+
+          <!-- <% if(message.sender_id === user.id & message.mode === 'R'){ %>   
+            <div class="sms-date-image" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <span class="sms-image r">UW</span>
+            <div class="sms-real-body">
+            <div class="sms-content-id date-time hide"><%= message.current_date %> | <%= message.current_time %></div>
+            <div class="time"><span>Success &checkmark;</span><span class="px-2"><%= message.current_date %> | <%= message.current_time %></span></div>
+            <div class="sms-content-id transaction-id"><%= message.transaction_id %> <input type="checkbox" name="check" id="<%= message.transaction_id %>"></div>
+            <div class="sms-content-id amount hide"><%= message.amount %></div>
+            <div class="sms hide"><%= message.agent_success_message %></div>
+
+            <div class="sms-content-id recipient-name hide"><%= message.recipient_first_name %> <%= message.recipient_last_name %></div>
+
+            <div class="sms-content-id sender-name hide"><%= message.sender_first_name %> <%= message.sender_last_name %></div>
+
+            <div class="sms-content-id recipient-mobile hide"><%= message.recipient_mobile %></div>
+
+            <div class="sms-content-id sender-mobile hide"><%= message.sender_mobile %></div>
+
+            <div class="sms-content-id sender-sender-cost hide"><%= message.sender_transaction_cost %></div>
+
+            <div class="sms-content-id recipient-sender-cost hide"><%= message.sender_transaction_cost %></div>
+            
+            <div class="sms-content-id wallet-income-data hide"><%= message.agent_income %> </div>
+            </div>
+        <% }%> -->
   
   
           </li>

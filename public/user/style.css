@@ -3821,9 +3821,11 @@ box-shadow: 0 0 .125rem rgba(0,0,0,.04),0 .0625rem .75rem rgba(0,0,0,.08);
     padding: 5px 12px;
     font-size: 14px;
     line-height: 20px;
-    color: #c9d1d9;
+    /* color: #c9d1d9; */
+    color:#013828;
     vertical-align: middle;
-    background-color: #0d1117;
+    /* background-color: #0d1117; */
+    background-color: #f0f6fc;
     background-repeat: no-repeat;
     background-position: right 8px center;
     border: 1px solid #30363d;

@@ -1,7 +1,7 @@
 {
-  "name": "KEPAS",
+  "name": "kepas",
   "version": "1.0.0",
-  "description": "Blockchain Money Transfer System",
+  "description": "money transfer",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -21,12 +21,16 @@
     "currency.js": "^2.0.4",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.2",
     "express-validator": "^6.11.1",
     "font-awesome": "^4.7.0",
+    "luxon": "^3.3.0",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
-    "nodemon": "^2.0.12",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }

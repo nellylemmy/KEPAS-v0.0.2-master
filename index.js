@@ -5,6 +5,7 @@ const user_routes = require('./routes');
 const flash = require('connect-flash');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+// const rateLimit = require('express-rate-limit')
 
 const app = express();
 app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +19,22 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 3600 * 1000000, // 10yrs
+        maxAge: 60000000, // Set the maximum age of the session cookie to 1 minute (60,000 milliseconds)
+        secure: false, // Ensure that the session cookie is only sent over HTTPS
+        // sameSite: 'strict' // Enforce strict same-site policy for the session cookie
     }
 }));
+
+// Middleware to check for session expiration
+app.use((req, res, next) => {
+    if (req.session && req.session.lastAccess && (Date.now() - req.session.lastAccess > 600000)) {
+        req.session.destroy(); // Destroy the session if it has been inactive for 1 minute
+        // res.send(`<h2>Your session has expired. Please login to continue. <a href="../">LOGIN</a></h2>`)
+    }
+    req.session.lastAccess = Date.now(); // Update the last access timestamp
+    next();
+});
+
 
 app.use(compression({
     level: 6,
@@ -137,9 +151,210 @@ app.use((req, res, next) => {
 </div>`)
 })
 
+
+
 app.use((err, req, res, next) => {
-    return res.send('Internal Server Error, Please check your connection to the node server');
+    return res.send(`<style>@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      height: 100%;
+    }
+    
+    body {
+      background: #fff1f1;
+      font-family: "Nunito", sans-serif;
+    }
+    
+    .container {
+      width: 75%;
+      max-width: 700px;
+      margin: 1.5rem auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    @media (max-width: 650px) {
+      .container {
+        width: 85%;
+      }
+    }
+    .container .header {
+      color: #fb3958;
+      font-size: 5em;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 2px 2px 5px #b1041f;
+    }
+    @media (max-width: 650px) {
+      .container .header {
+        font-size: 3em;
+      }
+    }
+    
+    .compcontainer {
+      width: 75%;
+      height: 13rem;
+      padding: 1rem 0;
+    }
+    @media (max-width: 650px) {
+      .compcontainer {
+        height: 10rem;
+      }
+    }
+    .compcontainer svg {
+      max-width: 100%;
+      max-height: 100%;
+      animation: bouncy 1300ms linear infinite;
+    }
+    
+    .instructions {
+      background: #FEFEFE;
+      width: 80%;
+      height: auto;
+      padding: 1rem;
+      border: 1px solid #DCDCDC;
+      border-radius: 0.25rem;
+    }
+    @media (max-width: 650px) {
+      .instructions {
+        width: 100%;
+      }
+    }
+    .instructions h2 {
+      font-size: 1.25em;
+      line-height: 1.3;
+      color: #e30528;
+    }
+    @media (max-width: 650px) {
+      .instructions h2 {
+        font-size: 1.05em;
+      }
+    }
+    .instructions p {
+      font-size: 1.15em;
+      line-height: 1.5;
+      color: #122125;
+    }
+    @media (max-width: 650px) {
+      .instructions p {
+        font-size: 1em;
+      }
+    }
+    .instructions .step {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    .instructions .step .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      align-self: center;
+    }
+    @media (max-width: 650px) {
+      .instructions .step .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+    .instructions .step p {
+      display: inline-block;
+      width: 80%;
+      line-height: 1.5;
+      padding-left: 0.5rem;
+    }
+    
+    @keyframes bouncy {
+      0% {
+        transform: translateY(10px) translateX(0) rotate(0);
+      }
+      25% {
+        transform: translateX(-10px) rotate(-10deg);
+      }
+      50% {
+        transform: translateX(0) rotate(0deg);
+      }
+      75% {
+        transform: translateX(10px) rotate(10deg);
+      }
+      100% {
+        transform: translateY(10px) translateX(0) rotate(0);
+      }
+    }</style><div class="container">
+    <div class="compcontainer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.5 74.769">
+        <path fill="#C7CCDB" d="M58.073 74.769H32.426l6.412-19.236h12.824z"/>
+        <path fill="#373F45" d="M90.5 52.063c0 1.917-2.025 3.471-4.525 3.471H4.525C2.025 55.534 0 53.98 0 52.063V3.471C0 1.554 2.026 0 4.525 0h81.449c2.5 0 4.525 1.554 4.525 3.471v48.592z"/>
+        <path fill="#F1F2F2" d="M84.586 46.889c0 1.509-1.762 2.731-3.936 2.731H9.846c-2.172 0-3.933-1.223-3.933-2.731V8.646c0-1.508 1.761-2.732 3.933-2.732H80.65c2.174 0 3.936 1.225 3.936 2.732v38.243z"/>
+        <path fill="#A2A7A5" d="M16.426 5.913L8.051 23h13l-6.875 12.384L26.75 46.259l-8.375-11.375L26.75 20H14.625l6.801-14.087zM68.551 49.62l-8.375-17.087h13l-6.875-12.384L78.875 9.274 70.5 20.649l8.375 14.884H66.75l6.801 14.087z"/>
+      </svg>
+    </div>
+    <h1 class="header">500 ERROR</h1>
+    <div class="instructions">
+      <h2>Sorry, something went wrong on our end. We are currently trying to fix the problem.</h2>
+      <p>In the meantime, you can:</p>
+      <div class="step">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.711 489.711">
+          <path d="M112.156,97.111c72.3-65.4,180.5-66.4,253.8-6.7l-58.1,2.2c-7.5,0.3-13.3,6.5-13,14c0.3,7.3,6.3,13,13.5,13    c0.2,0,0.3,0,0.5,0l89.2-3.3c7.3-0.3,13-6.2,13-13.5v-1c0-0.2,0-0.3,0-0.5v-0.1l0,0l-3.3-88.2c-0.3-7.5-6.6-13.3-14-13    c-7.5,0.3-13.3,6.5-13,14l2.1,55.3c-36.3-29.7-81-46.9-128.8-49.3c-59.2-3-116.1,17.3-160,57.1c-60.4,54.7-86,137.9-66.8,217.1    c1.5,6.2,7,10.3,13.1,10.3c1.1,0,2.1-0.1,3.2-0.4c7.2-1.8,11.7-9.1,9.9-16.3C36.656,218.211,59.056,145.111,112.156,97.111z"></path>
+            <path d="M462.456,195.511c-1.8-7.2-9.1-11.7-16.3-9.9c-7.2,1.8-11.7,9.1-9.9,16.3c16.9,69.6-5.6,142.7-58.7,190.7    c-37.3,33.7-84.1,50.3-130.7,50.3c-44.5,0-88.9-15.1-124.7-44.9l58.8-5.3c7.4-0.7,12.9-7.2,12.2-14.7s-7.2-12.9-14.7-12.2l-88.9,8    c-7.4,0.7-12.9,7.2-12.2,14.7l8,88.9c0.6,7,6.5,12.3,13.4,12.3c0.4,0,0.8,0,1.2-0.1c7.4-0.7,12.9-7.2,12.2-14.7l-4.8-54.1    c36.3,29.4,80.8,46.5,128.3,48.9c3.8,0.2,7.6,0.3,11.3,0.3c55.1,0,107.5-20.2,148.7-57.4    C456.056,357.911,481.656,274.811,462.456,195.511z"></path>
+        </svg>
+        <p>Refresh the page</p>
+      </div>
+      <div class="step">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+          <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"></path>
+          <path d="M30,6c-0.552,0-1,0.447-1,1v23H14c-0.552,0-1,0.447-1,1s0.448,1,1,1h16c0.552,0,1-0.447,1-1V7C31,6.447,30.552,6,30,6z"></path>
+        </svg>
+        <p>Wait a few minutes</p>
+    </div>
+    </ul>
+  </div>
+  </div>`);
 });
+
+
+// Array containing all the names
+const names = [
+  // Fruits
+  "Mango", "Apple", "Banana", "Orange", "Pineapple", "Watermelon", "Grapes", "Strawberry", "Kiwi", "Peach", "Pear", "Blueberry", "Raspberry", "Lemon", "Lime", "Avocado", "Papaya", "Coconut", "Cherry", "Plum", "Guava", "Pomegranate", "Fig", "Apricot", "Cranberry", "Blackberry", "Grapefruit", "Lychee", "Passion fruit", "Persimmon", "Dragon fruit", "Cantaloupe", "Honeydew melon", "Nectarine", "Tangerine", "Elderberry", "Mulberry", "Gooseberry", "Boysenberry", "Currant", "Jackfruit", "Star fruit", "Plantain", "Acerola", "Quince", "Ackee", "Jabuticaba", "Rambutan", "Durian", "Ugli fruit", "Mangosteen", "Kumquat", "Carambola", "Chayote", "Pawpaw", "Feijoa", "Tamarind", "Loquat", "Jujube", "Soursop", "Mamey sapote", "Longan", "Kiwano", "Prickly pear", "Guanabana", "Breadnut", "Maracuja", "Cupuacu", "Damson plum", "Sloe", "Physalis", "Cloudberry", "Aronia", "Juneberry", "Bael fruit", "Indian gooseberry", "Calamondin", "Karanda", "Yellow passion fruit", "Miracle fruit", "Monstera deliciosa", "Salak", "Santa Claus melon", "Horned cantaloupe", "Lemon drop melon", "Casaba melon", "Pepino melon", "Crenshaw melon", "Sharlyn melon", "Galia melon", "Canary melon", "Ogen melon", "Charentais melon", "Piel de Sapo melon", "Sprite melon", "Hami melon",
+  
+  // Animals
+  "Lion", "Elephant", "Giraffe", "Tiger", "Cheetah", "Zebra", "Hippopotamus", "Rhino", "Gorilla", "Chimpanzee", "Orangutan", "Panda", "Koala", "Kangaroo", "Platypus", "Dolphin", "Whale", "Shark", "Octopus", "Jellyfish", "Seahorse", "Turtle", "Crocodile", "Alligator", "Snake", "Lizard", "Gecko", "Chameleon", "Frog", "Toad", "Salamander", "Newt", "Bat", "Squirrel", "Chipmunk", "Raccoon", "Fox", "Wolf", "Coyote", "Dog", "Cat", "Lionfish", "Swordfish", "Penguin", "Ostrich", "Emu", "Peacock", "Flamingo", "Eagle", "Falcon", "Hawk", "Owl", "Toucan", "Parrot", "Pelican", "Swan", "Duck", "Goose", "Chicken", "Rooster", "Turkey", "Pigeon", "Sparrow", "Hummingbird", "Bee", "Butterfly", "Ladybug", "Ant", "Grasshopper", "Cricket", "Beetle", "Spider", "Scorpion", "Centipede", "Millipede", "Snail", "Slug", "Worm", "Armadillo", "Hedgehog", "Rabbit", "Hare", "Mouse", "Rat", "Hamster", "Guinea pig", "Ferret", "Chinchilla", "Gerbil", "Mole", "Otter", "Seal", "Walrus", "Beaver", "Raccoon dog", "Skunk", "Meerkat", "Lemur", "Squirrel monkey", "Tamarin", "Gibbon", "Capuchin", "Baboon", "Mandrill", "Macaque", "Vervet monkey", "Red panda", "Wombat", "Tasmanian devil", "Wallaby", "Quokka", "Dingo", "Platypus", "Tasmanian tiger", "Alpaca", "Llama", "Camel", "Reindeer", "Moose", "Caribou", "Bison", "Yak", "Water buffalo", "Musk ox",
+  
+  // Cars
+  "Toyota", "Camry", "Honda", "Civic", "Ford", "Mustang", "Chevrolet", "Corvette", "BMW", "Series", "Mercedes-Benz", "C-Class", "Audi", "A4", "Nissan", "Altima", "Volkswagen", "Golf", "Tesla", "Model", "Subaru", "Impreza", "Mazda", "Hyundai", "Elantra", "Kia", "Optima", "Lexus", "ES", "Jeep", "Wrangler", "GMC", "Sierra", "Ram", "F-", "Silverado", "Tacoma", "Accord", "Passat", "Outback", "CX-", "Santa", "Fe", "Sorento", "RX", "Grand", "Cherokee", "Yukon", "Explorer", "Traverse", "Highlander", "Pilot", "E-Class", "Q7", "Murano", "Tiguan", "Forester", "Kona", "Soul", "Compass", "Canyon", "ProMaster", "Expedition", "Tahoe", "Land", "Cruiser", "Odyssey", "LS", "Renegade", "Bolt", "EV", "Prius", "Insight", "EQC", "e-tron", "Leaf", "ID.", "XV", "MX-", "Tucson", "Niro",
+  
+  // Trees
+  "Nymph", "Plum", "Stick", "Azo", "Red", "Maple", "Blue", "Aspen", "Yew", "Palm", "Bamboo", "Alder", "Ginkgo", "Boxwood", "Banyan", "Dogwood", "Jacaranda", "Magnolia", "Willow", "Olive", "Ebony", "Laurel", "Larch", "Tulip", "Teak", "Weeping", "Yellow", "Quaking", "African", "Giant", "Black", "California", "Eastern", "English", "European", "Flowering", "Japanese", "Joshua", "Kentucky", "King", "Lacebark", "Leyland", "London", "Maidenhair", "Mahogany", "Oak", "Palm", "Pine", "Redwood", "Sequoia", "Sycamore", "Willow"
+];
+
+// Function to generate a random name
+function generateRandomName() {
+  const randomIndex = Math.floor(Math.random() * names.length);
+  return names[randomIndex];
+}
+
+// Example usage
+const randomName = generateRandomName();
+console.log(randomName);
+
+const number = 2342536;
+const firstFourDigits = Number(String(number).slice(0, 4));
+
+console.log(firstFourDigits); // Output: 2342
+
+const agentExtensionName = `${randomName}-${firstFourDigits}`;
+console.log(agentExtensionName)
+
+
+
+
 
 let PORT = 5000;
 
