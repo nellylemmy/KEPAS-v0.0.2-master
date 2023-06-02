@@ -8,18 +8,14 @@ let dbConnection = mysql.createPool({
     database: 'kepas_DB_v0.1'// database Name
 });
 
+    // suspended
+    // domant
+    // active
+    // freezed
+    // Excelent
+    // Good
 
-
-
-
-
-
-
-
-
-
-
-
+    
 /*
     CREATE ALL TABLES .
 */

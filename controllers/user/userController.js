@@ -268,6 +268,7 @@ exports.userMainPage_withdrawMoney_fromAgent = async (req, res, next) => {
     // const currentTimeAndDate = moment().format('llll');
     const currentTime = moment().format('LT');
     const currentDate = moment().format('ll');
+    
     const now = DateTime.now();
     console.log(`now is ${now}`)
 
@@ -1233,9 +1234,7 @@ exports.completeCompany = async (req, res, next) => {
     
 }catch(e){
     next(e)
-    }
-    
-    
+    }    
 }
 
 exports.completeBank = async (req, res, next) => {
@@ -1278,9 +1277,7 @@ exports.completeBank = async (req, res, next) => {
 
 }catch(e){
         next(e)
-    }
-    
-    
+    }    
 }
 
 exports.register = async (req, res, next) => {
@@ -1344,6 +1341,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.agentRegister = async (req, res, next) => {
+const agentNumber = generateRandomNumbers(7,9).join('');
 // Array containing all the names
 const names = [
     // Fruits
@@ -1367,10 +1365,9 @@ const names = [
   
   // Example usage
   const randomName = generateRandomName();
-  console.log(randomName);
-  
-  const number = 2342536;
-  const firstFourDigits = Number(String(number).slice(0, 4));
+//   const number = 2342536;
+
+  const firstFourDigits = Number(String(agentNumber).slice(0, 4));
   
   console.log(firstFourDigits); // Output: 2342
   
@@ -1413,13 +1410,14 @@ const names = [
         }
         
         const hashPass = await bcrypt.hash(body.password, 12);
-        const agentNumber = generateRandomNumbers(7,9).join('');
+        
 
         const agentFullNames = `${body.firstName} ${body.lastName}`;
+        const agentName = `${body.firstName}-${body.lastName}-${agentExtensionName}`;
 
         const [newAgentRow] = await dbConnection.execute(
-            "INSERT INTO `agents`(`agent_owner_full_names`,`agent_id`,`agent_phone`,`agent_email`,`agent_password`,`agent_number`) VALUES (?,?,?,?,?,?)",
-            [agentFullNames, body.idnumber, body.phone, body.email, hashPass,agentNumber]
+            "INSERT INTO `agents`(`agent_owner_full_names`,`agent_id`,`agent_phone`,`agent_email`,`agent_password`,`agent_number`,`agent_name`) VALUES (?,?,?,?,?,?,?)",
+            [agentFullNames, body.idnumber, body.phone, body.email, hashPass,agentNumber,agentName]
             );    
             
             if (newAgentRow.affectedRows !== 1) {

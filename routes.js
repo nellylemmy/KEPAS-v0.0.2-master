@@ -3,7 +3,6 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 const rateLimit = require('express-rate-limit')
-
 // const app = express();
 
 const userLoginAttemptLimiter = rateLimit({
@@ -54,7 +53,7 @@ const userLoginAttemptLimiter = rateLimit({
 })
 
 const agentLoginAttemptLimiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
+	windowMs: 6 * 60 * 1000, // 6 minutes
 	max: 6, // Limit each IP to 4 requests per `window` (here, per 6 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -160,7 +159,6 @@ const {
 
 } = require("./controllers/user/userController");
 
-
 // ...Checking if the user is NOT loged in...//
 const ifNotLoggedin = (req, res, next) => {
     if(!req.session.userID){
@@ -191,13 +189,11 @@ const ifAgentLoggedin = (req,res,next) => {
     next();
 }
 
-
 // ------------APIs-------------
 router.get('/api/users', allUsers);
 router.get('/api/agents', allAgents);
 router.get('/api/transactions', allTransactions);
 //-----End of APIs--------------
-
 
 // Will only Fire When users have loged in
 //=========================================
@@ -232,7 +228,6 @@ router.get("/bank/Complete", ifNotLoggedin, completeBankPage);
 router.get("/user/More", ifNotLoggedin, morePage);
 //=========================================================//
 
-
 // Will only Fire When users have NOT loged in
 //=========================================
 router.get("/Moreabout", ifLoggedin, moreAboutPage)
@@ -244,8 +239,6 @@ router.get("/agent/login", ifAgentLoggedin, agentloginPage);
 router.get("/user/signup", ifLoggedin, registerPage);
 router.get("/agent/signup", ifAgentLoggedin, agentRegisterPage);
 //===============================================//
-
-
 
 router.post("/user/login",
 ifLoggedin,
@@ -451,7 +444,6 @@ router.post(
     ],
     agentRegister
 );
-
 
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => err);

@@ -318,44 +318,6 @@ app.use((err, req, res, next) => {
   </div>`);
 });
 
-
-// Array containing all the names
-const names = [
-  // Fruits
-  "Mango", "Apple", "Banana", "Orange", "Pineapple", "Watermelon", "Grapes", "Strawberry", "Kiwi", "Peach", "Pear", "Blueberry", "Raspberry", "Lemon", "Lime", "Avocado", "Papaya", "Coconut", "Cherry", "Plum", "Guava", "Pomegranate", "Fig", "Apricot", "Cranberry", "Blackberry", "Grapefruit", "Lychee", "Passion fruit", "Persimmon", "Dragon fruit", "Cantaloupe", "Honeydew melon", "Nectarine", "Tangerine", "Elderberry", "Mulberry", "Gooseberry", "Boysenberry", "Currant", "Jackfruit", "Star fruit", "Plantain", "Acerola", "Quince", "Ackee", "Jabuticaba", "Rambutan", "Durian", "Ugli fruit", "Mangosteen", "Kumquat", "Carambola", "Chayote", "Pawpaw", "Feijoa", "Tamarind", "Loquat", "Jujube", "Soursop", "Mamey sapote", "Longan", "Kiwano", "Prickly pear", "Guanabana", "Breadnut", "Maracuja", "Cupuacu", "Damson plum", "Sloe", "Physalis", "Cloudberry", "Aronia", "Juneberry", "Bael fruit", "Indian gooseberry", "Calamondin", "Karanda", "Yellow passion fruit", "Miracle fruit", "Monstera deliciosa", "Salak", "Santa Claus melon", "Horned cantaloupe", "Lemon drop melon", "Casaba melon", "Pepino melon", "Crenshaw melon", "Sharlyn melon", "Galia melon", "Canary melon", "Ogen melon", "Charentais melon", "Piel de Sapo melon", "Sprite melon", "Hami melon",
-  
-  // Animals
-  "Lion", "Elephant", "Giraffe", "Tiger", "Cheetah", "Zebra", "Hippopotamus", "Rhino", "Gorilla", "Chimpanzee", "Orangutan", "Panda", "Koala", "Kangaroo", "Platypus", "Dolphin", "Whale", "Shark", "Octopus", "Jellyfish", "Seahorse", "Turtle", "Crocodile", "Alligator", "Snake", "Lizard", "Gecko", "Chameleon", "Frog", "Toad", "Salamander", "Newt", "Bat", "Squirrel", "Chipmunk", "Raccoon", "Fox", "Wolf", "Coyote", "Dog", "Cat", "Lionfish", "Swordfish", "Penguin", "Ostrich", "Emu", "Peacock", "Flamingo", "Eagle", "Falcon", "Hawk", "Owl", "Toucan", "Parrot", "Pelican", "Swan", "Duck", "Goose", "Chicken", "Rooster", "Turkey", "Pigeon", "Sparrow", "Hummingbird", "Bee", "Butterfly", "Ladybug", "Ant", "Grasshopper", "Cricket", "Beetle", "Spider", "Scorpion", "Centipede", "Millipede", "Snail", "Slug", "Worm", "Armadillo", "Hedgehog", "Rabbit", "Hare", "Mouse", "Rat", "Hamster", "Guinea pig", "Ferret", "Chinchilla", "Gerbil", "Mole", "Otter", "Seal", "Walrus", "Beaver", "Raccoon dog", "Skunk", "Meerkat", "Lemur", "Squirrel monkey", "Tamarin", "Gibbon", "Capuchin", "Baboon", "Mandrill", "Macaque", "Vervet monkey", "Red panda", "Wombat", "Tasmanian devil", "Wallaby", "Quokka", "Dingo", "Platypus", "Tasmanian tiger", "Alpaca", "Llama", "Camel", "Reindeer", "Moose", "Caribou", "Bison", "Yak", "Water buffalo", "Musk ox",
-  
-  // Cars
-  "Toyota", "Camry", "Honda", "Civic", "Ford", "Mustang", "Chevrolet", "Corvette", "BMW", "Series", "Mercedes-Benz", "C-Class", "Audi", "A4", "Nissan", "Altima", "Volkswagen", "Golf", "Tesla", "Model", "Subaru", "Impreza", "Mazda", "Hyundai", "Elantra", "Kia", "Optima", "Lexus", "ES", "Jeep", "Wrangler", "GMC", "Sierra", "Ram", "F-", "Silverado", "Tacoma", "Accord", "Passat", "Outback", "CX-", "Santa", "Fe", "Sorento", "RX", "Grand", "Cherokee", "Yukon", "Explorer", "Traverse", "Highlander", "Pilot", "E-Class", "Q7", "Murano", "Tiguan", "Forester", "Kona", "Soul", "Compass", "Canyon", "ProMaster", "Expedition", "Tahoe", "Land", "Cruiser", "Odyssey", "LS", "Renegade", "Bolt", "EV", "Prius", "Insight", "EQC", "e-tron", "Leaf", "ID.", "XV", "MX-", "Tucson", "Niro",
-  
-  // Trees
-  "Nymph", "Plum", "Stick", "Azo", "Red", "Maple", "Blue", "Aspen", "Yew", "Palm", "Bamboo", "Alder", "Ginkgo", "Boxwood", "Banyan", "Dogwood", "Jacaranda", "Magnolia", "Willow", "Olive", "Ebony", "Laurel", "Larch", "Tulip", "Teak", "Weeping", "Yellow", "Quaking", "African", "Giant", "Black", "California", "Eastern", "English", "European", "Flowering", "Japanese", "Joshua", "Kentucky", "King", "Lacebark", "Leyland", "London", "Maidenhair", "Mahogany", "Oak", "Palm", "Pine", "Redwood", "Sequoia", "Sycamore", "Willow"
-];
-
-// Function to generate a random name
-function generateRandomName() {
-  const randomIndex = Math.floor(Math.random() * names.length);
-  return names[randomIndex];
-}
-
-// Example usage
-const randomName = generateRandomName();
-console.log(randomName);
-
-const number = 2342536;
-const firstFourDigits = Number(String(number).slice(0, 4));
-
-console.log(firstFourDigits); // Output: 2342
-
-const agentExtensionName = `${randomName}-${firstFourDigits}`;
-console.log(agentExtensionName)
-
-
-
-
-
 let PORT = 5000;
 
 app.listen(PORT, () => console.log(`Server is runngin on port : ` + PORT));
