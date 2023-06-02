@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 27, 2023 at 07:24 AM
+-- Generation Time: Jun 02, 2023 at 12:47 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,8 +18,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bom`
+-- Database: `kepas_DB_v0.1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `50793553d5229621cbf9e241c529125c1b7c3723bff47eea888062007add5aa7`
+--
+
+CREATE TABLE `50793553d5229621cbf9e241c529125c1b7c3723bff47eea888062007add5aa7` (
+  `id` int(11) NOT NULL,
+  `transactions_id` int(11) DEFAULT NULL,
+  `banks_id` int(11) DEFAULT NULL,
+  `agents_id` int(11) DEFAULT NULL,
+  `users_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -53,7 +67,7 @@ CREATE TABLE `agents` (
 --
 
 INSERT INTO `agents` (`id`, `agent_number`, `agent_name`, `agent_owner_full_names`, `agent_id`, `agent_phone`, `agent_email`, `agent_password`, `agent_total_bal`, `agent_total_income`, `is_local_user`, `is_agent`, `is_company`, `is_bank`, `time`, `transactions_id`, `company_id`, `users_id`) VALUES
-(19, 4238619, 'nelson-lemein-tiger4238', 'nelson lemein', 123345678, '07123456789', 'me@gmail.com', '$2a$12$OE67FA3KulpQ3EA1jGsbN.ADIixmveCT1VEDl1BHlLzXCudexip8y', 5140.00, 19.40, NULL, NULL, NULL, NULL, '2023-05-21 10:38:25', NULL, NULL, NULL);
+(21, 2718549, 'nelson-lemein-Giraffe-2718', 'nelson lemein', 33436166, '0113913631', 'me@gmail.com', '$2a$12$lk2KdfbbpfbNog8EHGQr5OE3ZNpN568KBEJUH/E3uByEgvesxCTL6', 30200.00, 11.10, NULL, NULL, NULL, NULL, '2023-05-31 20:54:08', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,7 +130,46 @@ INSERT INTO `all_transactions` (`id`, `company_id`, `bank_id`, `agent_id`, `send
 (485, NULL, NULL, NULL, 48, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1587931756', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-1587931756</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 0.00</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 26, 2023', '11:41 PM', '2023-05-26 20:41:12'),
 (486, NULL, NULL, NULL, 48, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-7863251642', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-7863251642</b></u></span> Failed. You do not have sufficient funds to withdraw <span class=\"money\"><b><u>Ksh 200.00</u></b></span> Your balance is <span class=\"money\"><b><u>Ksh 0.00</u></b></span> You should pay a transaction fee of <span class=\"money\"><b><u>Ksh 6.00</u></b></span> Please top up <span class=\"money\"><b><u>Ksh 206.00</u></b></span> and Try Again', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 26, 2023', '11:42 PM', '2023-05-26 20:42:36'),
 (487, NULL, NULL, 19, 33, NULL, 250.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-8135797583', '<span class=\"random-ids\"><u><b>TID-8135797583</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 250.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 27, 2023</b> at <b>1:29 AM</b>). New BOM balance is <span class=\"money\"><b><u>Ksh 994,042.00</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 27, 2023', '1:29 AM', '2023-05-26 22:29:38'),
-(488, NULL, NULL, 19, 33, NULL, 250.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-8135797583', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.60, '<span class=\"random-ids\"><u><b>TID-8135797583</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 250.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>1:29 AM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,140.00</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', 'May 27, 2023', '1:29 AM', '2023-05-26 22:29:38');
+(488, NULL, NULL, 19, 33, NULL, 250.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-8135797583', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.60, '<span class=\"random-ids\"><u><b>TID-8135797583</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 250.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>1:29 AM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,140.00</u></b></span>. Thank you for choosing our platform. BOM, YOUR MONEY FREEDOM.', 'May 27, 2023', '1:29 AM', '2023-05-26 22:29:38'),
+(489, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-6349571349', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6349571349</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>122222</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:04 PM', '2023-05-27 12:04:38'),
+(490, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-3854189357', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-3854189357</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 994,042.00</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:05 PM', '2023-05-27 12:05:25'),
+(491, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-3169813679', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-3169813679</b></u></span> Warning! You entered a wrong password', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:06 PM', '2023-05-27 12:06:35'),
+(492, NULL, NULL, 19, 33, NULL, 49.99, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1592623517', '<span class=\"random-ids\"><u><b>TID-1592623517</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 49.99 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 27, 2023</b> at <b>3:07 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 993,982.01</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 27, 2023', '3:07 PM', '2023-05-27 12:07:29'),
+(493, NULL, NULL, 19, 33, NULL, 49.99, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1592623517', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 1.00, '<span class=\"random-ids\"><u><b>TID-1592623517</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 49.99 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>3:07 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,189.99</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 27, 2023', '3:07 PM', '2023-05-27 12:07:29'),
+(494, NULL, NULL, 19, 33, NULL, 49.40, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-7938479842', '<span class=\"random-ids\"><u><b>TID-7938479842</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 49.40 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 27, 2023</b> at <b>3:08 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 993,922.61</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 27, 2023', '3:08 PM', '2023-05-27 12:08:39'),
+(495, NULL, NULL, 19, 33, NULL, 49.40, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-7938479842', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 1.00, '<span class=\"random-ids\"><u><b>TID-7938479842</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 49.40 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>3:08 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,239.39</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 27, 2023', '3:08 PM', '2023-05-27 12:08:39'),
+(496, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4183913578', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-4183913578</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 993,922.61</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:25 PM', '2023-05-27 12:25:54'),
+(497, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-6327118265', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6327118265</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 993,922.61</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:26 PM', '2023-05-27 12:26:22'),
+(498, NULL, NULL, 19, 33, NULL, 49.10, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-3759463857', '<span class=\"random-ids\"><u><b>TID-3759463857</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 49.10 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 27, 2023</b> at <b>3:26 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 993,863.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 27, 2023', '3:26 PM', '2023-05-27 12:26:43'),
+(499, NULL, NULL, 19, 33, NULL, 49.10, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-3759463857', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 1.00, '<span class=\"random-ids\"><u><b>TID-3759463857</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 49.10 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>3:26 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,288.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 27, 2023', '3:26 PM', '2023-05-27 12:26:43'),
+(500, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2791562814', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-2791562814</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 993,863.51</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 27, 2023', '3:30 PM', '2023-05-27 12:30:12'),
+(501, NULL, NULL, 19, 33, NULL, 50.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-6183921693', '<span class=\"random-ids\"><u><b>TID-6183921693</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 50.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 27, 2023</b> at <b>3:31 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 993,803.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 27, 2023', '3:31 PM', '2023-05-27 12:31:07'),
+(502, NULL, NULL, 19, 33, NULL, 50.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 10.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-6183921693', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 1.00, '<span class=\"random-ids\"><u><b>TID-6183921693</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 50.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 27, 2023</b> at <b>3:31 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,338.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 27, 2023', '3:31 PM', '2023-05-27 12:31:07'),
+(503, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4823156324', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-4823156324</b></u></span> Failed. There Is No user with the number <span class=\"phone-number\"><u><b>074164209355</b></u></span> Please check the number and try again', NULL, NULL, NULL, 0.00, NULL, 'May 29, 2023', '2:36 PM', '2023-05-29 11:36:05'),
+(504, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-8317514569', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-8317514569</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>1234</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 29, 2023', '10:53 PM', '2023-05-29 19:53:19'),
+(505, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-5437895631', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-5437895631</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>1234</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '12:19 AM', '2023-05-29 21:19:41'),
+(506, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4891646958', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-4891646958</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>1</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '12:24 AM', '2023-05-29 21:24:54'),
+(507, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4916896732', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-4916896732</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>1</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '12:50 AM', '2023-05-29 21:50:24'),
+(508, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1738523465', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-1738523465</b></u></span> Failed. You can not withdraw funds less than <span class=\"money\"><b><u>Ksh 50.00</u></b></span> Current balance is <span class=\"money\"><b><u> Ksh 993,803.51</u></b></span> Please try again.', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '1:04 AM', '2023-05-29 22:04:36'),
+(509, NULL, NULL, 19, 33, NULL, 200.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4819648791', '<span class=\"random-ids\"><u><b>TID-4819648791</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 30, 2023</b> at <b>1:05 AM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 993,597.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 30, 2023', '1:05 AM', '2023-05-29 22:05:21'),
+(510, NULL, NULL, 19, 33, NULL, 200.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-4819648791', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.60, '<span class=\"random-ids\"><u><b>TID-4819648791</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 30, 2023</b> at <b>1:05 AM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 5,538.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 30, 2023', '1:05 AM', '2023-05-29 22:05:21'),
+(511, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1692873142', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-1692873142</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>423861</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '2:09 PM', '2023-05-30 11:09:54'),
+(512, NULL, NULL, NULL, 33, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1643562318', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-1643562318</b></u></span> Warning! You entered a wrong password', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '2:50 PM', '2023-05-30 11:50:44'),
+(513, NULL, NULL, 19, 33, NULL, 1200.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 22.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-5618443215', '<span class=\"random-ids\"><u><b>TID-5618443215</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 1,200.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 30, 2023</b> at <b>2:51 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 992,375.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 30, 2023', '2:51 PM', '2023-05-30 11:51:37'),
+(514, NULL, NULL, 19, 33, NULL, 1200.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 22.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-5618443215', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 2.20, '<span class=\"random-ids\"><u><b>TID-5618443215</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 1,200.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 30, 2023</b> at <b>2:51 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 6,738.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 30, 2023', '2:51 PM', '2023-05-30 11:51:37'),
+(515, NULL, NULL, 19, 33, NULL, 200.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1547221547', '<span class=\"random-ids\"><u><b>TID-1547221547</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 30, 2023</b> at <b>4:15 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 992,169.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 30, 2023', '4:15 PM', '2023-05-30 13:15:58'),
+(516, NULL, NULL, 19, 33, NULL, 200.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-1547221547', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.60, '<span class=\"random-ids\"><u><b>TID-1547221547</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 30, 2023</b> at <b>4:15 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 6,938.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 30, 2023', '4:15 PM', '2023-05-30 13:15:58'),
+(517, NULL, NULL, 19, 33, NULL, 30000.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 105.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2489195284', '<span class=\"random-ids\"><u><b>TID-2489195284</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 30,000.00 </u></b></span> from <b>nelson-lemein-tiger4238</b> (<span class=\"phone-number\"><u>4238619</u></span>). On (<b>May 30, 2023</b> at <b>4:48 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 962,064.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 0.00, NULL, 'May 30, 2023', '4:48 PM', '2023-05-30 13:48:39'),
+(518, NULL, NULL, 19, 33, NULL, 30000.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 105.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2489195284', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-tiger4238', 4238619, '07123456789', 10.50, '<span class=\"random-ids\"><u><b>TID-2489195284</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 30,000.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 30, 2023</b> at <b>4:48 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 36,938.49</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 30, 2023', '4:48 PM', '2023-05-30 13:48:39'),
+(519, NULL, NULL, 20, 34, NULL, 3000.00, 'S', NULL, NULL, 'cate', 'tracy', '1234567890', 51.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2843121869', '<span class=\"random-ids\"><u><b>TID-2843121869</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 3,000.00 </u></b></span> from <b>patrick-julaton-tiger5472</b> (<span class=\"phone-number\"><u>5472138</u></span>). On (<b>May 30, 2023</b> at <b>9:26 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 8,130.80</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'patrick-julaton-tiger5472', 5472138, '0712123434', 0.00, NULL, 'May 30, 2023', '9:26 PM', '2023-05-30 18:26:32'),
+(520, NULL, NULL, 20, 34, NULL, 3000.00, 'R', NULL, NULL, 'cate', 'tracy', '1234567890', 51.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2843121869', NULL, NULL, NULL, NULL, NULL, 'patrick-julaton-tiger5472', 5472138, '0712123434', 5.10, '<span class=\"random-ids\"><u><b>TID-2843121869</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 3,000.00 </u></b></span> from <b>cate</b> <b>tracy</b> (<span class=\"phone-number\"><u>1234567890</u></span>). On (<b>May 30, 2023</b> at <b>9:26 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 3,000.00</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 30, 2023', '9:26 PM', '2023-05-30 18:26:32'),
+(521, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-6941521493', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-6941521493</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>74754</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'May 30, 2023', '11:46 PM', '2023-05-30 20:46:42'),
+(522, NULL, NULL, 21, 33, NULL, 30000.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 105.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2837531972', '<span class=\"random-ids\"><u><b>TID-2837531972</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 30,000.00 </u></b></span> from <b>nelson-lemein-Giraffe-2718</b> (<span class=\"phone-number\"><u>2718549</u></span>). On (<b>May 31, 2023</b> at <b>9:57 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 931,959.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-Giraffe-2718', 2718549, '0113913631', 0.00, NULL, 'May 31, 2023', '9:57 PM', '2023-05-31 18:57:44'),
+(523, NULL, NULL, 21, 33, NULL, 30000.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 105.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2837531972', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-Giraffe-2718', 2718549, '0113913631', 10.50, '<span class=\"random-ids\"><u><b>TID-2837531972</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 30,000.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>May 31, 2023</b> at <b>9:57 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 30,000.00</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'May 31, 2023', '9:57 PM', '2023-05-31 18:57:44'),
+(524, NULL, NULL, NULL, 40, NULL, 0.00, 'W', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2174665281', NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-2174665281</b></u></span> Failed. You do not have sufficient funds to withdraw <span class=\"money\"><b><u>Ksh 41,235.00</u></b></span> Your balance is <span class=\"money\"><b><u>Ksh 41,235.00</u></b></span> You should pay a transaction fee of <span class=\"money\"><b><u>Ksh 105.00</u></b></span> Please top up <span class=\"money\"><b><u>Ksh 105.00</u></b></span> and Try Again', NULL, NULL, NULL, NULL, 0.00, NULL, 'May 31, 2023', '10:40 PM', '2023-05-31 19:40:14'),
+(525, NULL, NULL, NULL, 33, NULL, 0.00, 'E', NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-3216471683', NULL, NULL, NULL, NULL, '<span class=\"random-ids\"><u><b>TID-3216471683</b></u></span> Failed. Please check agent number <span class=\"phone-number\"><u><b>660606001000</b></u></span> does not exist!', NULL, NULL, NULL, 0.00, NULL, 'Jun 1, 2023', '11:01 AM', '2023-06-01 08:01:25'),
+(526, NULL, NULL, 21, 33, NULL, 200.00, 'S', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2791651826', '<span class=\"random-ids\"><u><b>TID-2791651826</b></u></span> Confirmed You have successfully withdraw <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson-lemein-Giraffe-2718</b> (<span class=\"phone-number\"><u>2718549</u></span>). On (<b>Jun 1, 2023</b> at <b>9:49 PM</b>). New KEPAS balance is <span class=\"money\"><b><u>Ksh 931,753.51</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', NULL, NULL, NULL, NULL, 'nelson-lemein-Giraffe-2718', 2718549, '0113913631', 0.00, NULL, 'Jun 1, 2023', '9:49 PM', '2023-06-01 18:49:54'),
+(527, NULL, NULL, 21, 33, NULL, 200.00, 'R', NULL, NULL, 'nelson', 'lemein', '0741642093', 6.00, 0.00, NULL, NULL, NULL, 0.00, 0.00, 'TID-2791651826', NULL, NULL, NULL, NULL, NULL, 'nelson-lemein-Giraffe-2718', 2718549, '0113913631', 0.60, '<span class=\"random-ids\"><u><b>TID-2791651826</b></u></span> Confirmed You Received <span class=\"money\"><b><u>Ksh 200.00 </u></b></span> from <b>nelson</b> <b>lemein</b> (<span class=\"phone-number\"><u>0741642093</u></span>). On (<b>Jun 1, 2023</b> at <b>9:49 PM</b>) New agent balance is <span class=\"money\"><b><u>Ksh 30,200.00</u></b></span>. Thank you for choosing our platform. KEPAS, YOUR MONEY FREEDOM.', 'Jun 1, 2023', '9:49 PM', '2023-06-01 18:49:54');
 
 -- --------------------------------------------------------
 
@@ -208,20 +261,6 @@ CREATE TABLE `error_messages` (
   `time` varchar(20) DEFAULT NULL,
   `date_time` varchar(35) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `example_table`
---
-
-CREATE TABLE `example_table` (
-  `id` int(11) NOT NULL,
-  `transactions_id` int(11) DEFAULT NULL,
-  `banks_id` int(11) DEFAULT NULL,
-  `agents_id` int(11) DEFAULT NULL,
-  `users_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -361,19 +400,32 @@ CREATE TABLE `local_user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
+-- Table structure for table `myTable`
 --
 
-CREATE TABLE `messages` (
+CREATE TABLE `myTable` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `recipient_id` int(11) DEFAULT NULL,
+  `transactions_id` int(11) DEFAULT NULL,
+  `banks_id` int(11) DEFAULT NULL,
+  `agents_id` int(11) DEFAULT NULL,
+  `users_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pending_messages`
+--
+
+CREATE TABLE `pending_messages` (
+  `id` int(11) NOT NULL,
   `transaction_id` varchar(20) DEFAULT NULL,
-  `success_message` text DEFAULT NULL,
-  `recipient_success` varchar(250) DEFAULT NULL,
-  `warning_message` text DEFAULT NULL,
-  `error_message` text DEFAULT NULL,
-  `pending_message` text DEFAULT NULL,
+  `sender_id` int(11) DEFAULT NULL,
+  `recipient_id` int(11) DEFAULT NULL,
+  `sender_success_message` longtext DEFAULT NULL,
+  `recipient_success_message` longtext DEFAULT NULL,
+  `sender_pending_message` longtext DEFAULT NULL,
+  `recipient_pending_message` longtext DEFAULT NULL,
   `time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -467,8 +519,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `transactions_id`, `company_id`, `agent_id`, `first_name`, `last_name`, `id_number`, `mobile`, `country`, `email`, `password`, `is_local_user`, `is_agent`, `is_company`, `is_bank`, `public_id`, `balance`, `show_balance`, `income`, `date`) VALUES
-(33, NULL, NULL, NULL, 'nelson', 'lemein', '225468566588', '0741642093', NULL, 'nelson@gmail.com', '$2a$12$1jIX4M6qHi1WFTAX0MhGfO27QHaKWrkCZuIa3ZWqCQ6nV9OyUedLO', 'yes', NULL, NULL, NULL, '926135478', 994042.00, 1, 80.50, '2021-10-13 20:41:47'),
-(34, NULL, NULL, NULL, 'cate', 'tracy', '3434244212', '1234567890', NULL, 'tracy@gmail.com', '$2a$12$zGRI9ShPEu9lpzcEtpI0/uFkP.gt7TQh18KYeHYDRMyi9WgrL5u0.', 'yes', NULL, NULL, NULL, '862435917', 11181.80, 1, 37.20, '2021-10-13 20:45:50'),
+(33, NULL, NULL, NULL, 'nelson', 'lemein', '225468566588', '0741642093', NULL, 'nelson@gmail.com', '$2a$12$1jIX4M6qHi1WFTAX0MhGfO27QHaKWrkCZuIa3ZWqCQ6nV9OyUedLO', 'yes', NULL, NULL, NULL, '926135478', 931753.51, 1, 80.50, '2021-10-13 20:41:47'),
+(34, NULL, NULL, NULL, 'cate', 'tracy', '3434244212', '1234567890', NULL, 'tracy@gmail.com', '$2a$12$zGRI9ShPEu9lpzcEtpI0/uFkP.gt7TQh18KYeHYDRMyi9WgrL5u0.', 'yes', NULL, NULL, NULL, '862435917', 8130.80, 1, 37.20, '2021-10-13 20:45:50'),
 (39, NULL, NULL, NULL, 'denos', 'lenos', '12345678', '0112345678', NULL, 'nn@mail.com', '$2a$12$9gqJNxwB1RKYf7XasLhvLeWhQDuoUznYO.VML5JVyelpyTj6GIv1G', 'yes', NULL, NULL, NULL, '456317829', 1413.00, 1, 9.30, '2021-10-24 14:31:33'),
 (40, NULL, NULL, NULL, 'willy', 'paul', '12323236', '0711223344', NULL, 'willy@gmail.com', '$2a$12$HUtxYkF2dVOsdkd1eY62guPYvaMP6L7moPJY4sh1Fl5gvtz6NcBge', 'yes', NULL, NULL, NULL, '324589617', 41235.00, 1, 2.40, '2022-11-05 17:01:53'),
 (41, NULL, NULL, NULL, 'dani', 'alaves', '12332154', '1212343454', NULL, 'dan@gmail.com', '$2a$12$XYA4EjB0kXm1lnq9lpBjkuZaF7HMELMFUETN.xSm0bEd8rcdrWEQW', 'yes', NULL, NULL, NULL, '518934627', 0.00, 1, 0.00, '2023-01-04 21:09:20'),
@@ -499,6 +551,12 @@ CREATE TABLE `warning_messages` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `50793553d5229621cbf9e241c529125c1b7c3723bff47eea888062007add5aa7`
+--
+ALTER TABLE `50793553d5229621cbf9e241c529125c1b7c3723bff47eea888062007add5aa7`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `agents`
@@ -565,12 +623,6 @@ ALTER TABLE `error_messages`
   ADD KEY `sender_id` (`sender_id`);
 
 --
--- Indexes for table `example_table`
---
-ALTER TABLE `example_table`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `in_wallet`
 --
 ALTER TABLE `in_wallet`
@@ -584,11 +636,17 @@ ALTER TABLE `local_user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `messages`
+-- Indexes for table `myTable`
 --
-ALTER TABLE `messages`
+ALTER TABLE `myTable`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pending_messages`
+--
+ALTER TABLE `pending_messages`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
+  ADD KEY `user_id` (`sender_id`),
   ADD KEY `recipient_id` (`recipient_id`);
 
 --
@@ -646,13 +704,13 @@ ALTER TABLE `warning_messages`
 -- AUTO_INCREMENT for table `agents`
 --
 ALTER TABLE `agents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `all_transactions`
 --
 ALTER TABLE `all_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=489;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=528;
 
 --
 -- AUTO_INCREMENT for table `argents`
@@ -665,184 +723,8 @@ ALTER TABLE `argents`
 --
 ALTER TABLE `banks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `company`
---
-ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `company_deposited_to_argent`
---
-ALTER TABLE `company_deposited_to_argent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `company_income`
---
-ALTER TABLE `company_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `error_messages`
---
-ALTER TABLE `error_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT for table `in_wallet`
---
-ALTER TABLE `in_wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
-
---
--- AUTO_INCREMENT for table `local_user`
---
-ALTER TABLE `local_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT for table `success_messages`
---
-ALTER TABLE `success_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
-
---
--- AUTO_INCREMENT for table `total_company_income`
---
-ALTER TABLE `total_company_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `total_wallet_income`
---
-ALTER TABLE `total_wallet_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `transactions`
---
-ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
---
--- AUTO_INCREMENT for table `warning_messages`
---
-ALTER TABLE `warning_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `agents`
---
-ALTER TABLE `agents`
-  ADD CONSTRAINT `agents_ibfk_1` FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `agents_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `agents_ibfk_3` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `all_transactions`
---
-ALTER TABLE `all_transactions`
-  ADD CONSTRAINT `all_transactions_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `all_transactions_ibfk_2` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `all_transactions_ibfk_3` FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `all_transactions_ibfk_4` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `all_transactions_ibfk_5` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `banks`
---
-ALTER TABLE `banks`
-  ADD CONSTRAINT `banks_ibfk_1` FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `banks_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `company`
---
-ALTER TABLE `company`
-  ADD CONSTRAINT `company_ibfk_1` FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `company_ibfk_2` FOREIGN KEY (`banks_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `company_ibfk_3` FOREIGN KEY (`agents_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `company_ibfk_4` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `company_income`
---
-ALTER TABLE `company_income`
-  ADD CONSTRAINT `company_income_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `all_transactions` (`sender_id`) ON DELETE SET NULL;
-
---
--- Constraints for table `error_messages`
---
-ALTER TABLE `error_messages`
-  ADD CONSTRAINT `error_messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `in_wallet`
---
-ALTER TABLE `in_wallet`
-  ADD CONSTRAINT `in_wallet_ibfk_1` FOREIGN KEY (`recipient_id`) REFERENCES `all_transactions` (`recipient_id`) ON DELETE SET NULL;
-
---
--- Constraints for table `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `success_messages`
---
-ALTER TABLE `success_messages`
-  ADD CONSTRAINT `success_messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `success_messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `total_wallet_income`
---
-ALTER TABLE `total_wallet_income`
-  ADD CONSTRAINT `total_wallet_income_ibfk_1` FOREIGN KEY (`recipient_id`) REFERENCES `in_wallet` (`recipient_id`) ON DELETE SET NULL;
-
---
--- Constraints for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`banks_id`) REFERENCES `banks` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `transactions_ibfk_3` FOREIGN KEY (`agents_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `transactions_ibfk_4` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`transactions_id`) REFERENCES `transactions` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `warning_messages`
---
-ALTER TABLE `warning_messages`
-  ADD CONSTRAINT `warning_messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
