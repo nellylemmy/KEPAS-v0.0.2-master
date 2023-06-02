@@ -4,7 +4,7 @@
 
 <b><i>NB</i> Make sure you have node and git installed</b>
 
-1. <code>git clone https://github.com/nellylemmy/KEPAS-v0.0.2.git</code>
+1. <code>git clone https://github.com/nellylemmy/KEPAS-v0.0.2-master.git</code>
 
 2. <code>npm install</code>
 
