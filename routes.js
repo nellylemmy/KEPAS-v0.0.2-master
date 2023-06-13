@@ -287,6 +287,10 @@ ifNotLoggedin,
         .notEmpty(),
         body("recipientQuantity", "enter amount")
         .notEmpty(),
+        body("pword", " Password must have at least 4 characters ")
+            .notEmpty()
+            .trim()
+            .isLength({ min: 4 })
     ],
     userMainPage_sendMoney_userToUser
 );

@@ -75,12 +75,20 @@
         
                   <div class="tab">
                       <p class="send-money-input">
-                      <input type="number" min="0" placeholder="Enter amount" step="0.01" oninput="this.className = ''" name="recipientQuantity" required >
+                      <input id = "recipient__amt" type="number" min="0" placeholder="Enter amount" step="0.01" oninput="this.className = ''" name="recipientQuantity" required >
                       </p>
                   </div>
                   <div class="tab">
                       <p class="send-money-input"><input placeholder="Enter Password..." oninput="this.className = ''" name="pword" type="password" autocomplete="on"></p>
                   </div>
+
+                  <div class="tab">
+                    <p><label id="sender-confirmation-message" for="pword"></label></p>
+                </div>
+
+                  <!-- <div class="tab">
+                    <p class="send-money-input" id="sender-confirmation-message"></p>
+                </div> -->
         
                   <div class="next-prev-btns">
                         <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
@@ -92,6 +100,7 @@
     </div>
   </div>
   <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
@@ -122,6 +131,36 @@ function showTab(n) {
   }
   if (n == (x.length - 1)) {
     document.getElementById("nextBtn").innerHTML = "Submit";
+    const getRecipientPhoneNumber = document.getElementById('recipient-number')
+    const getRecipientAmount = document.getElementById('recipient__amt')
+
+    const getRecipientPhoneNumberValue = getRecipientPhoneNumber.value;
+    const getRecipientAmountValue = getRecipientAmount.value;
+
+    console.log(getRecipientAmountValue)
+
+    const targetRPN = parseInt(getRecipientPhoneNumberValue) //5472138; // The specific RPN value you want to fetch
+
+fetch('http://localhost:5000/api/users')
+  .then(res => res.json())
+  .then(data => {
+    // Search for the user with the specified RN value
+    const targetRecipient = data.find(user => user.mobile == getRecipientPhoneNumberValue);
+
+    // Check if a user with the specified RN was found
+    if (targetRecipient) {
+      console.log('User found:');
+      console.log(`agent no: ${targetRecipient.mobile} Recipient name: ${targetRecipient.first_name} ${targetRecipient.last_name}`);
+      document.getElementById('sender-confirmation-message').innerHTML = `<p><b>Confirm Recipient Details: &check; </b> <br> <hr> <b>Recipient Name: <code>${targetRecipient.first_name} ${targetRecipient.last_name}</code> </b><br><b>Sent amount: Ksh <code>${getRecipientAmountValue}</code></b> <hr></p>`;
+    } else {
+      console.log('User not found.');
+      document.getElementById('sender-confirmation-message').innerHTML = `<p>We did not find that user number! </p>`;
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
@@ -152,7 +191,7 @@ function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
   x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
+  y = x[currentTab].querySelectorAll(".tab input");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...

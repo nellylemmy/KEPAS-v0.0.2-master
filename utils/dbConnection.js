@@ -3,11 +3,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let dbConnection = mysql.createPool({
-    port:3406,
+    port:3306,
     host:'127.0.0.1',   // host name
     user:'root',      // database username
     password:'',      // database password
-    database:'kepas_DB_v0.1'   // database Name
+    database:'kepas_db'   // database Name
 });
 
     // suspended
