@@ -1,3 +1,5 @@
+// KEPAS INDEX PAGE
+
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
@@ -6,6 +8,13 @@ const flash = require('connect-flash');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 // const rateLimit = require('express-rate-limit')
+
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mysql = require('mysql2');
+
+require('dotenv').config();
 
 const app = express();
 app.set('views', path.join(__dirname, 'views'));
@@ -45,6 +54,17 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(user_routes);
 app.use(express.json());
+
+app.use(cors());
+app.use(bodyParser.urlencoded({extended:true}));
+
+const db = mysql.createPool({
+  port: process.env.DB_PORT,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
+});
 
 
 app.use((req, res, next) => {

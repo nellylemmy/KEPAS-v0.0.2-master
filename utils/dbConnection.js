@@ -1,13 +1,12 @@
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 let dbConnection = mysql.createPool({
-    port:3306,
-    host:'127.0.0.1',   // host name
-    user:'root',      // database username
-    password:'',      // database password
-    database:'kepas_db'   // database Name
+    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
     // suspended

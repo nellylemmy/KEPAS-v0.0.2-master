@@ -3,105 +3,88 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 const rateLimit = require('express-rate-limit')
-// const app = express();
 
-const userLoginAttemptLimiter = rateLimit({
-	windowMs: 6 * 60 * 1000, // 6 minutes
-	max: 6, // Limit each IP to 6 requests per `window` (here, per 6 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    message: `<style>
-                section{
-                    max-width:30rem;
-                    margin:5rem auto;
-                }
-                .card {
-                    display: flex;
-                    flex-direction: column;
-                    border: 1px red solid;
-                }
-                .header {
-                    height: 30%;
-                    background: red;
-                    color: white;
-                    text-align: center;
-                    font-size: 1.3rem;
-                    font-weight: 600;
-                }
-                .container {
-                    padding: 2px 16px;
-                }
-             </style>
-    
-    <section>
-    <div class="card">
-    <div class="header">
-        <p>Too Many Request! Please Wait for 15 minutes</p>
-    </div>
-        <div class="container">
-        <p>We apologize for the inconvenience, but it seems that there has been unusual activity detected from your device. To ensure the security of your account, we have temporarily restricted access for the next 15 minutes. This precautionary measure helps us protect your account from potential unauthorized access.
-        </p>
 
-        <p>
-        If you have forgotten your account information or need assistance, please don't hesitate to contact our support team. We'll be happy to assist you in recovering your account.
-        </p>
+        // ============================================= \\
+        // LIMIT API ENDPOINTS REQUEST FOR ALL ROUTES     \\
+        // =============================================== \\
+        let rateLimitMessage = {
+            windowMs: 6 * 60 * 1000, // 6 minutes
+            max: 6, // Limit each IP to 6 requests per `window` (here, per 6 minutes)
+            standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+            legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+            message: `<style>
+                        section{
+                            max-width:30rem;
+                            margin:5rem auto;
+                        }
+                        .card {
+                            display: flex;
+                            flex-direction: column;
+                            border: 1px red solid;
+                        }
+                        .header {
+                            height: 30%;
+                            background: red;
+                            color: white;
+                            text-align: center;
+                            font-size: 1.3rem;
+                            font-weight: 600;
+                        }
+                        .container {
+                            padding: 2px 16px;
+                        }
+                    </style>
+            
+            <section>
+            <div class="card">
+            <div class="header">
+                <p>Too Many Request! Please Wait for 15 minutes</p>
+            </div>
+                <div class="container">
+                <p>We apologize for the inconvenience, but it seems that there has been unusual activity detected from your device. To ensure the security of your account, we have temporarily restricted access for the next 15 minutes. This precautionary measure helps us protect your account from potential unauthorized access.
+                </p>
+
+                <p>
+                If you have forgotten your account information or need assistance, please don't hesitate to contact our support team. We'll be happy to assist you in recovering your account.
+                </p>
+                
+                <p>Thank you for your understanding and cooperation in maintaining the security of your account.</p>
+            </div>
+        </div>
+        </section>`
+        };
+        const userLoginAttemptLimiter = rateLimit(rateLimitMessage);
+        const agentLoginAttemptLimiter = rateLimit(rateLimitMessage);
+        const usersAPIsLimiter = rateLimit(rateLimitMessage);
+
+        // Apply the rate limiting middleware to API calls only
+        router.use('/user/login', userLoginAttemptLimiter)
+        router.use('/agent/login', agentLoginAttemptLimiter)
+        router.use('/api/users', usersAPIsLimiter)
+
+        // ============================================= \\
+        // END FOR LIMIT API ENDPOINTS                    \\
+        // =============================================== \\
+
+
+        // ===============================================  \\
+        // ROUTES TO DIFFERENT CONTROLLERS
+        // ===============================================  \\
         
-        <p>Thank you for your understanding and cooperation in maintaining the security of your account.</p>
-    </div>
-</div>
-</section>`
-})
+        const {userMainPage_withdrawMoney_fromAgent} = 
+        require("./controllers/user/withdraw-from-agent");
 
-const agentLoginAttemptLimiter = rateLimit({
-	windowMs: 6 * 60 * 1000, // 6 minutes
-	max: 6, // Limit each IP to 4 requests per `window` (here, per 6 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    message: `<style>
-                section{
-                    max-width:30rem;
-                    margin:5rem auto;
-                }
-                .card {
-                    display: flex;
-                    flex-direction: column;
-                    border: 1px red solid;
-                }
-                .header {
-                    height: 30%;
-                    background: red;
-                    color: white;
-                    text-align: center;
-                    font-size: 1.3rem;
-                    font-weight: 600;
-                }
-                .container {
-                    padding: 2px 16px;
-                }
-             </style>
-    
-    <section>
-    <div class="card">
-    <div class="header">
-        <p>Too Many Request! Please Wait for 15 minutes</p>
-    </div>
-        <div class="container">
-        <p>We apologize for the inconvenience, but it seems that there has been unusual activity detected from your device. To ensure the security of your account, we have temporarily restricted access for the next 15 minutes. This precautionary measure helps us protect your account from potential unauthorized access.
-        </p>
+        const {withdraw_my_wallet} = 
+        require("./controllers/user/withdraw-to-wallet");
 
-        <p>
-        If you have forgotten your account information or need assistance, please don't hesitate to contact our support team. We'll be happy to assist you in recovering your account.
-        </p>
-        
-        <p>Thank you for your understanding and cooperation in maintaining the security of your account.</p>
-    </div>
-</div>
-</section>`
-})
+        const {userMainPage_sendMoney_userToUser} = 
+        require("./controllers/user/send-and-receive-from-user");
 
-// Apply the rate limiting middleware to API calls only
-router.use('/user/login', userLoginAttemptLimiter)
-router.use('/agent/login', agentLoginAttemptLimiter)
+        // ===============================================  \\
+        // END OF ROUTES TO DIFFERENT CONTROLLERS
+        // ===============================================  \\
+
 
 const {
     welcome,
@@ -131,9 +114,9 @@ const {
     morePage,
     moreAboutPage,
 
-    userMainPage_sendMoney_userToUser,
-    withdraw_my_wallet,
-    userMainPage_withdrawMoney_fromAgent,
+    
+    
+    
     
     activity,
     help,

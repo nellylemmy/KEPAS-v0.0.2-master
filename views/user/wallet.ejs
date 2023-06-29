@@ -48,7 +48,7 @@
                 <p class="modal__description">
                   <small>Balance</small>
                   <div class="balance-value wallet" id="user_bal"> Ksh <%= Intl.NumberFormat('en-US', { style: 'currency',currency: 'KES'}).format(user.income).slice(4) %><span></span></div>
-                  <input type="number" name="walletAmount">
+                  <input type="number" name="walletAmount" step="0.01" min="0">
                   <input type="password" name="walletPassword" autocomplete="on"> 
                 </p>
               </div>
