@@ -145,13 +145,13 @@ fetch('http://localhost:5000/api/users')
   .then(res => res.json())
   .then(data => {
     // Search for the user with the specified RN value
-    const targetRecipient = data.find(user => user.mobile == getRecipientPhoneNumberValue);
+    const targetRecipient = data.find(user => user.un_mb == getRecipientPhoneNumberValue);
 
     // Check if a user with the specified RN was found
     if (targetRecipient) {
       console.log('User found:');
-      console.log(`agent no: ${targetRecipient.mobile} Recipient name: ${targetRecipient.first_name} ${targetRecipient.last_name}`);
-      document.getElementById('sender-confirmation-message').innerHTML = `<p><b>Confirm Recipient Details: &check; </b> <br> <hr> <b>Recipient Name: <code>${targetRecipient.first_name} ${targetRecipient.last_name}</code> </b><br><b>Sent amount: Ksh <code>${getRecipientAmountValue}</code></b> <hr></p>`;
+      console.log(`agent no: ${targetRecipient.un_mb} Recipient name: ${targetRecipient.un_fn} ${targetRecipient.un_ln}`);
+      document.getElementById('sender-confirmation-message').innerHTML = `<p><b>Confirm Recipient Details: &check; </b> <br> <hr> <b>Recipient Name: <code>${targetRecipient.un_fn} ${targetRecipient.un_ln}</code> </b><br><b>Sent amount: Ksh <code>${getRecipientAmountValue}</code></b> <hr></p>`;
     } else {
       console.log('User not found.');
       document.getElementById('sender-confirmation-message').innerHTML = `<p>We did not find that user number! </p>`;
